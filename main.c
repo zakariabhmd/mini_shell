@@ -6,24 +6,12 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:08:55 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/09 05:44:48 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/09 06:25:53 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 #include <stdio.h>
-#include "./libft/libft.h"
-
-void free_2d(char **str) {
-	int idx = 0;
-	while (str[idx ]){
-		free(str[idx]);
-		str[idx] = NULL;
-		idx++;
-	}
-	free(str);
-	str = NULL;
-}
 
 int main (int ac, char **av, char **env) {
 

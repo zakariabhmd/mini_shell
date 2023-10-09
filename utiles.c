@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_shell.h                                       :+:      :+:    :+:   */
+/*   utiles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 05:09:07 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/09 06:26:03 by zbabahmi         ###   ########.fr       */
+/*   Created: 2023/10/09 06:23:53 by zbabahmi          #+#    #+#             */
+/*   Updated: 2023/10/09 06:29:39 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_SHELL_H
-# define MINI_SHELL_H
+#include "mini_shell.h"
 
-#include "./libft/libft.h"
-#include <unistd.h>
-#include <stdio.h>
+void free_2d(char **str)
+{
+	int	idx;
 
-typedef struct s_savage {
-	char *command;
-	char **agrs;
-}t_savage;
-
-void free_2d(char **str);
-
-#endif
+	idx = 0;
+	while (str[idx ]){
+		free(str[idx]);
+		str[idx] = NULL;
+		idx++;
+	}
+	free(str);
+	str = NULL;
+}

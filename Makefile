@@ -1,7 +1,7 @@
 NAME = minishell
 CC = cc
 CFLAGS = # -Wall -Werror -Wextra
-SRC = main.c
+SRC = main.c utiles.c
 OBJ = $(SRC:.c=.o)
 RM = rm -rf
 
