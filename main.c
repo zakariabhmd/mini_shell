@@ -6,14 +6,15 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:08:55 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/09 06:25:53 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/09 06:46:05 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 #include <stdio.h>
 
-int main (int ac, char **av, char **env) {
+int main (int ac, char **av, char **env)
+{
 
 	t_savage *savage = ft_calloc(1, sizeof(t_savage));
 	savage[0].command = ft_strdup("grep");
@@ -22,7 +23,8 @@ int main (int ac, char **av, char **env) {
 	int idx = 0;
 	char **holder;
 	char *holder2;
-	while (env[idx]) {
+	while (env[idx])
+	{
 		holder = ft_split(env[idx], '=');
 		if (ft_strncmp(holder[0], "PATH", ft_strlen(holder[0])) == 0) {
 			holder2 = ft_strdup(holder[1]);
@@ -45,6 +47,5 @@ int main (int ac, char **av, char **env) {
 		}
 		idx++;
 	}
-	// execv("/bin");
 	return (0);
 }
