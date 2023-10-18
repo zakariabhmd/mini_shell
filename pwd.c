@@ -6,8 +6,17 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:02:36 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/18 13:03:39 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/18 13:38:19 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+int	pwd_com(void)
+{
+	char	cl[1024];
+
+	getcwd(cl, sizeof(cl));
+	ft_putendl_fd(cl, 1);
+	return (1);
+}

@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:09:07 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/18 12:55:50 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/18 13:38:29 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ typedef struct s_savage {
 void free_2d(char **str);
 int	ft_strcmp(char *s1, char *s2);
 int	echo_printer(char **arg);
+int	pwd_com(void);
 
 #endif
