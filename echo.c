@@ -1,31 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_shell.h                                       :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 05:09:07 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/18 12:55:50 by zbabahmi         ###   ########.fr       */
+/*   Created: 2023/10/18 12:49:20 by zbabahmi          #+#    #+#             */
+/*   Updated: 2023/10/18 13:08:11 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_SHELL_H
-# define MINI_SHELL_H
+#include "mini_shell.h"
 
-#include "./libft/libft.h"
-#include <unistd.h>
-#include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+int	echo_printer(char **arg)
+{
+	int	i;
+	int	sign;
 
-typedef struct s_savage {
-	char *command;
-	char **agrs;
-}t_savage;
-
-void free_2d(char **str);
-int	ft_strcmp(char *s1, char *s2);
-int	echo_printer(char **arg);
-
-#endif
+	i = 0;
+	sign = 1;
+	while (arg[i])
+	{
+		if (!ft_strncmp(arg[i], "-n", 2))
+		{
+			sign = 0;
+			i++;
+		}
+		else
+			break;
+	}
+	while (arg[i])
+	{
+		ft_putstr_fd(arg[i], 1);
+		if (arg[i + 1])
+			ft_putchar_fd(' ', 1);
+		i++;
+	}
+	if (sign)
+		ft_putchar_fd('\n', 1);
+	return (1);
+}

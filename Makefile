@@ -1,15 +1,15 @@
 NAME = minishell
 CC = cc
-CFLAGS = # -Wall -Werror -Wextra
-SRC = main.c utiles.c
+CFLAGS = #-Wall -Werror -Wextra
+SRC = main.c utiles.c cd.c echo.c exit.c export.c pwd.c
 OBJ = $(SRC:.c=.o)
 RM = rm -rf
-
+LDFLAGS="-L/goinfre/zbabahmi/homebrew/opt/readline/lib"
 all : ${NAME}
 
 ${NAME} : ${OBJ}
 		make all -C ./libft/
-		${CC} ${CFLAGS} ${OBJ} ./libft/libft.a  -o ${NAME}
+		${CC}   ${LDFLAGS} ${CFLAGS} ${OBJ} ./libft/libft.a   -lreadline -o ${NAME}
 
 clean :
 	make clean -C ./libft/

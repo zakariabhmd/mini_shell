@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 06:23:53 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/09 06:29:39 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/18 12:33:35 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,18 @@ void free_2d(char **str)
 	}
 	free(str);
 	str = NULL;
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	while(*s2)
+	{
+		if(*s1 != *s2)
+			return(0);
+		s1++;
+		s2++;
+	}
+	if(*s1 != *s2)
+		return(0);
+	return(1);
 }
