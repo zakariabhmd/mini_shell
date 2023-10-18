@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:08:55 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/18 13:43:08 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/18 13:57:20 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ int	bulttin_check(t_savage *savage)
 
 	ret = 0;
 	if (ft_strcmp(savage->command, "exit"))
-		ret = ft_exit
+		ret = ft_exit(savage->command);
 	else if (ft_strcmp(savage->command, "echo"))
 		ret = echo_printer(savage->command + 1);
 	else if (ft_strcmp(savage->command, "cd"))
 		ret = chdir(savage->command + 1);
 	else if (ft_strcmp(savage->command, "pwd"))
 		ret = pwd_com();
-	// else if (ft_strcmp(savage->command, "export"))
-	// 	ret =
+	else if (ft_strcmp(savage->command, "export"))
+		ret = export(savage->command);
 	return (ret);
 
 }
@@ -58,7 +58,7 @@ int main (int ac, char **av, char **env)
 				free_2d(holder);
 				idx++;
 			}
-			bulttin_check(savage);
+			bulttin_check(savage->command);
 			char **path = ft_split(holder2, ':');
 			int status;
 			pid_t pid = fork();

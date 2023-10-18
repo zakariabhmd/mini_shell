@@ -6,10 +6,13 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:02:47 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/18 13:43:21 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/18 13:54:08 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int	ft_exit()
+int	ft_exit(t_savage *savage)
+{
+	exit(1);
+}
