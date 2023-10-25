@@ -6,13 +6,8 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:02:56 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/18 13:57:02 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/20 10:15:34 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-int	export(t_savage *savage)
-{
-	
-}

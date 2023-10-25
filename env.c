@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:37:08 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/18 14:48:10 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/20 10:14:51 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,3 @@ char	*get_env(t_savage *savage, char *arg)
 	}
 	return (ft_strdup(" "));
 }
-

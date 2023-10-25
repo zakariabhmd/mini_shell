@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:08:55 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/18 14:34:07 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/25 04:46:58 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@ int	bulttin_check(t_savage *savage)
 	int	ret;
 
 	ret = 0;
-	if (ft_strcmp(savage->command, "exit"))
-		ret = ft_exit(savage->command);
-	else if (ft_strcmp(savage->command, "echo"))
-		ret = echo_printer(savage->command + 1);
-	else if (ft_strcmp(savage->command, "cd"))
-		ret = chdir(savage->command + 1);
-	else if (ft_strcmp(savage->command, "pwd"))
+	if (ft_strcmp(savage->agrs[0], "exit"))
+		exit(1);
+	else if (ft_strcmp(savage->agrs[0], "echo"))
+		ret = echo_printer(savage->agrs + 1);
+	else if (ft_strcmp(savage->agrs[0], "cd"))
+		ret = chdir(*savage->agrs + 1);
+	else if (ft_strcmp(savage->agrs[0], "pwd"))
 		ret = pwd_com();
 	// else if (ft_strcmp(savage->command, "export"))
 	// 	ret = export(savage->command);
+	// else if(ft_strcmp(savage->agrs[0], "unsset"))
 	return (ret);
-
 }
 
 int main (int ac, char **av, char **env)
@@ -58,7 +58,7 @@ int main (int ac, char **av, char **env)
 				free_2d(holder);
 				idx++;
 			}
-			bulttin_check(savage->command);
+			bulttin_check(savage);
 			char **path = ft_split(holder2, ':');
 			int status;
 			pid_t pid = fork();

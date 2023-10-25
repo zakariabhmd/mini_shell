@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:09:07 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/18 14:46:29 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/20 10:14:07 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ int	pwd_com(void);
 int	ft_exit(t_savage *savage);
 int	export(t_savage *savage);
 char	*get_env(t_savage *savage, char *arg);
+int	bulttin_check(t_savage *savage);
 
 #endif
