@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:37:08 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/20 10:14:51 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/26 04:06:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,32 @@ char	*get_env(t_savage *savage, char *arg)
 	}
 	return (ft_strdup(" "));
 }
+
+void	claner_env(char *arg, char **env)
+{
+	int	i;
+	int	size;
+
+	size = ft_strlen(arg);
+	i = 0;
+	while (env[i])
+	{
+		if (!ft_strncmp(arg, env[i], size))
+			break ;
+		i++;
+	}
+	if (env[i])
+	{
+		free(env[i]);
+		env[i] = NULL;
+		i++;
+		while (env[i])
+		{
+			env[i - 1] = env[i];
+			i++;
+		}
+		env[i - 1] = NULL;
+	}
+}
+
+
