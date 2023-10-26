@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:37:08 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/26 06:23:38 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/26 04:06:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,41 +55,4 @@ void	claner_env(char *arg, char **env)
 	}
 }
 
-void	path_search(char **env)
-{
-	int		i;
-	char	*tmp;
 
-	i = 0;
-	while (env[i])
-	{
-		if (!ft_strncmp(env[i], "PATH=", 5))
-		{
-			tmp = env[i];
-			env[i] = env[i + 1];
-			env[i + 1] = tmp;
-			i++;
-		}
-		i++;
-	}
-}
-
-
-int	envirment(t_savage *savage, char **arg)
-{
-	int i;
-	char **env_writer;
-
-	if(savage->agrs[i])
-	{
-		ft_putendl_fd("env: too many arguments", 1);
-		return (1);
-	}
-	i = 0;
-	env_writer = arg;
-	path_search(env_writer);
-	while (env_writer[i])
-		ft_putendl_fd(env_writer[i++], 1);
-	export(savage, "_=env");
-	return (1);
-}
