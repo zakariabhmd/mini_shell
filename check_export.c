@@ -90,7 +90,7 @@ int invalide_export(t_savage *savage, char *arg, char *cmd)
     ft_strcpy(print_error, backup);
     free(backup);
     savage->exit_status = 1;
-    // ft_error(print_error, cmd);
+    ft_error(print_error, cmd);
     free(print_error);
     return (1);
 }
