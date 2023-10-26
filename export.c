@@ -3,24 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:02:56 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/26 06:09:52 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/26 06:24:39 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-// int	ft_expt(t_savage *savage)
-// {
-// 	int	test;
-
-// 	test = 0;
-// 	cleane_env("_", savage->env);
-// 	test = export(savage, NULL);
-// 	return (test);
-// }
 char	**check_env(char **env)
 {
 	char	**backup_env;
@@ -80,7 +71,7 @@ int	write_env(t_savage *savage)
 
 	backup_env1 = strdup_env(savage->env);
 	backup_env2 = check_env(backup_env1);
-	// envirment(savage, backup_env1);
+	envirment(savage, backup_env1);
 	return (1);
 }
 

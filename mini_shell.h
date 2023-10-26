@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:09:07 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/26 06:06:14 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/26 06:24:16 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int invalide_export(t_savage *savage, char *arg, char *cmd);
 int	export(t_savage *savage, char *arg);
 char **strdup_env(char **env);
 char    *write_q_back(char *str);
+int	envirment(t_savage *savage, char **arg);
 
 #endif
