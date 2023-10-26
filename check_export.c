@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_export.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/26 06:02:47 by zbabahmi          #+#    #+#             */
+/*   Updated: 2023/10/26 06:02:47 by zbabahmi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "mini_shell.h"
 
 int ft_strncmp_res(char *s1, char *s2, int len)
@@ -78,7 +90,7 @@ int invalide_export(t_savage *savage, char *arg, char *cmd)
     ft_strcpy(print_error, backup);
     free(backup);
     savage->exit_status = 1;
-    ft_error(print_error, cmd);
+    // ft_error(print_error, cmd);
     free(print_error);
     return (1);
 }
@@ -121,7 +133,7 @@ char    *write_q_back(char *str)
         return (NULL);
     while (str[i])
     {
-        if(esc_char(s[i]))
+        if(esc_char(str[i]))
             tmp[j] = '\\';
         tmp[j] = str[i];
         if(str[i] == '=')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:09:07 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/26 05:54:32 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/26 06:06:14 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	ft_strcmp(char *s1, char *s2);
 int	echo_printer(char **arg);
 int	pwd_com(void);
 int	ft_exit(t_savage *savage);
-int	export(t_savage *savage);
 char	*get_env(t_savage *savage, char *arg);
 void	claner_env(char *arg, char **env);
 int	ft_expt(t_savage *savage);

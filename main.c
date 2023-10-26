@@ -6,12 +6,22 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:08:55 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/25 04:46:58 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/26 06:08:27 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 #include <stdio.h>
+
+int	ft_expt(t_savage *savage)
+{
+	int	test;
+
+	test = 0;
+	claner_env("_", savage->env);
+	test = export(savage, NULL);
+	return (test);
+}
 
 int	bulttin_check(t_savage *savage)
 {
@@ -26,8 +36,8 @@ int	bulttin_check(t_savage *savage)
 		ret = chdir(*savage->agrs + 1);
 	else if (ft_strcmp(savage->agrs[0], "pwd"))
 		ret = pwd_com();
-	// else if (ft_strcmp(savage->command, "export"))
-	// 	ret = export(savage->command);
+	else if (ft_strcmp(savage->agrs[0], "export"))
+		ret = ft_expt(savage);
 	// else if(ft_strcmp(savage->agrs[0], "unsset"))
 	return (ret);
 }
