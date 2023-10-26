@@ -6,21 +6,12 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:02:56 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/26 06:09:52 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/26 07:10:24 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-// int	ft_expt(t_savage *savage)
-// {
-// 	int	test;
-
-// 	test = 0;
-// 	cleane_env("_", savage->env);
-// 	test = export(savage, NULL);
-// 	return (test);
-// }
 char	**check_env(char **env)
 {
 	char	**backup_env;
@@ -65,12 +56,12 @@ void	help_export(t_savage *savage, char *arg, int i)
 	while (savage->env[j] && ft_strncmp_res(savage->env[j], arg_value, arg_len))
 		j++;
 	backup = ft_strdup(arg_value);
-	// free(arg_value);
-	// arg_value =
-	// free (backup);
-	// backup_env =
-	// free (arg_value);
-	// savage->env = backup_env;
+	free(arg_value);
+	arg_value = bs_parse(backup, 3);
+	free (backup);
+	backup_env = new_env(&arg_value, savage->env, j);
+	free (arg_value);
+	savage->env = backup_env;
 }
 
 int	write_env(t_savage *savage)
@@ -80,7 +71,7 @@ int	write_env(t_savage *savage)
 
 	backup_env1 = strdup_env(savage->env);
 	backup_env2 = check_env(backup_env1);
-	// envirment(savage, backup_env1);
+	envirment(savage, backup_env1);
 	return (1);
 }
 

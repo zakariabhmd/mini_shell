@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:09:07 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/26 06:06:14 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/26 07:18:24 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,10 @@ int invalide_export(t_savage *savage, char *arg, char *cmd);
 int	export(t_savage *savage, char *arg);
 char **strdup_env(char **env);
 char    *write_q_back(char *str);
+int	envirment(t_savage *savage, char **arg);
+char    *bs_parse(char *str, int bs_check);
+char    **new_env(char **arg, char **env, int pos);
+int	ft_error(char *msg, char *bin);
+int	unset(t_savage *savage);
 
 #endif
