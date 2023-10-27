@@ -34,12 +34,12 @@ int	unset(t_savage *savage)
 
     i = 1;
 
-    while(savage->args[i])
+    while(savage->agrs[i])
     {
-        if(valid_key_name(savage->args[i]))
-            env_cleaner(savage->args[i], savage->env);
+        if(valid_key_name(savage->agrs[i]))
+            env_cleaner(savage->agrs[i], savage->env);
         else
-            invalid_export(savage, savage->args[i], "unset");
+            invalid_export(savage, savage->agrs[i], "unset");
         i++;
     }
     return (1);
