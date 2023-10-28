@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:08:55 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/26 07:19:01 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/28 08:18:06 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	bulttin_check(t_savage *savage)
 		ret = pwd_com();
 	// else if (ft_strcmp(savage->agrs[0], "export"))
 	// 	ret = ft_expt(savage);
-	else if(ft_strcmp(savage->agrs[0], "unsset"))
-		ret = unset(savage);
+	// else if(ft_strcmp(savage->agrs[0], "unsset"))
+	// 	ret = unset(savage);
 	return (ret);
 }
 
