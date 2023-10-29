@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:08:55 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/28 08:18:06 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/29 14:46:07 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	ft_expt(t_savage *savage)
 {
 	int	test;
-
+	
 	test = 0;
 	claner_env("_", savage->env);
 	test = export(savage, NULL);
@@ -26,6 +26,7 @@ int	ft_expt(t_savage *savage)
 int	bulttin_check(t_savage *savage)
 {
 	int	ret;
+	char	*backup;
 
 	ret = 0;
 	if (ft_strcmp(savage->agrs[0], "exit"))
@@ -48,6 +49,7 @@ int main (int ac, char **av, char **env)
 
 	t_savage *savage = ft_calloc(1, sizeof(t_savage));
 	char *line;
+	
 	while (1)
 	{
 		line = readline("minishell-> ");
