@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 06:23:53 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/29 14:48:07 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/18 12:33:35 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void free_2d(char **str)
 	int	idx;
 
 	idx = 0;
-	while (str[idx ])
-	{
+	while (str[idx ]){
 		free(str[idx]);
 		str[idx] = NULL;
 		idx++;
