@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:09:07 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/26 07:18:24 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/01 03:50:49 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,7 @@ char    *bs_parse(char *str, int bs_check);
 char    **new_env(char **arg, char **env, int pos);
 int	ft_error(char *msg, char *bin);
 int	unset(t_savage *savage);
+void    free_env(char **str);
+int invalid_char(char *arg, int i);
 
 #endif

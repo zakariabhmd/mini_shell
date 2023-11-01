@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:08:55 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/29 07:59:56 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/01 06:15:47 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	ft_expt(t_savage *savage)
 int	bulttin_check(t_savage *savage)
 {
 	int	ret;
+	char	*backup;
 
 	ret = 0;
 	if (ft_strcmp(savage->agrs[0], "exit"))
@@ -36,10 +37,10 @@ int	bulttin_check(t_savage *savage)
 		ret = chdir(*savage->agrs + 1);
 	else if (ft_strcmp(savage->agrs[0], "pwd"))
 		ret = pwd_com();
-	// else if (ft_strcmp(savage->agrs[0], "export"))
-	// 	ret = ft_expt(savage);
-	// else if(ft_strcmp(savage->agrs[0], "unset"))
-	// 	ret = unset(savage);
+	else if (ft_strcmp(savage->agrs[0], "export"))
+		ret = ft_expt(savage);
+	else if(ft_strcmp(savage->agrs[0], "unset"))
+		ret = unset(savage);
 	return (ret);
 }
 
@@ -48,6 +49,7 @@ int main (int ac, char **av, char **env)
 
 	t_savage *savage = ft_calloc(1, sizeof(t_savage));
 	char *line;
+
 	while (1)
 	{
 		line = readline("minishell-> ");
@@ -69,6 +71,7 @@ int main (int ac, char **av, char **env)
 				free_2d(holder);
 				idx++;
 			}
+			// ft_pipe(savage);
 			bulttin_check(savage);
 			char **path = ft_split(holder2, ':');
 			int status;
