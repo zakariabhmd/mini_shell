@@ -12,35 +12,35 @@
 
 #include "mini_shell.h"
 
-int	valid_key_name(char *str)
-{
-	int	i;
+// int	valid_key_name(char *str)
+// {
+// 	int	i;
 
-	i = 0;
-	if (!str || ft_isdigit(str[i]) || str[i] == '=')
-		return (0);
-	while (str[i])
-	{
-		if (invalid_char(str, i) || str[i] == '=')
-			return (0);
-		i++;
-	}
-	return (1);
-}
+// 	i = 0;
+// 	if (!str || ft_isdigit(str[i]) || str[i] == '=')
+// 		return (0);
+// 	while (str[i])
+// 	{
+// 		if (invalid_char(str, i) || str[i] == '=')
+// 			return (0);
+// 		i++;
+// 	}
+// 	return (1);
+// }
 
-int	unset(t_savage *savage)
-{
-    int i;
+// int	unset(t_savage *savage)
+// {
+//     int i;
 
-    i = 1;
+//     i = 1;
 
-    while(savage->agrs[i])
-    {
-        if(valid_key_name(savage->agrs[i]))
-            claner_env(savage->agrs[i], savage->env);
-        else
-            invalide_export(savage, savage->agrs[i], "unset");
-        i++;
-    }
-    return (1);
-}
+//     while(savage->agrs[i])
+//     {
+//         if(valid_key_name(savage->agrs[i]))
+//             env_cleaner(savage->agrs[i], savage->env);
+//         else
+//             invalid_export(savage, savage->agrs[i], "unset");
+//         i++;
+//     }
+//     return (1);
+// }

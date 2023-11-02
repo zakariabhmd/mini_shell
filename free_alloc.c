@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utiles.c                                           :+:      :+:    :+:   */
+/*   free_alloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 06:23:53 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/18 12:33:35 by zbabahmi         ###   ########.fr       */
+/*   Created: 2023/11/02 17:58:18 by zbabahmi          #+#    #+#             */
+/*   Updated: 2023/11/02 19:27:28 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-void free_2d(char **str)
+void	free_env(char **str)
 {
-	int	idx;
+	int	i;
 
-	idx = 0;
-	while (str[idx ]){
-		free(str[idx]);
-		str[idx] = NULL;
-		idx++;
+	i = 0;
+	while (str[i])
+	{
+		free(str[i++]);
 	}
 	free(str);
-	str = NULL;
 }
 
-int	ft_strcmp(char *s1, char *s2)
+void	sh_cleaner(t_savage *savage)
 {
-	while(*s2)
-	{
-		if(*s1 != *s2)
-			return(0);
-		s1++;
-		s2++;
-	}
-	if(*s1 != *s2)
-		return(0);
-	return(1);
+	free(savage->command);
+	savage->command = NULL;
+	free_env(savage->agrs);
+	savage->agrs = NULL;
+	free_env(savage->env);
+	savage->env = NULL;
 }

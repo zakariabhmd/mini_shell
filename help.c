@@ -22,7 +22,7 @@ char **strdup_env(char **env)
     i = 0;
     while(env[len])
         len++;
-    tmp = malloc(sizeof(char *) * len + 1);
+    tmp = malloc(sizeof(char *) * len + 13);
     if (!tmp)
         return (NULL);
     while (*env && env[i])
@@ -75,11 +75,12 @@ char    **new_env(char **arg, char **env, int pos)
     return (backup);
 }
 
-char    generate_path(char *path, char *bin)
+char	*generate_absolute_path(char *path, char *bin)
 {
-    char    *tmp;
-    tmp = ft_strjoin(path, "/");
-    path = ft_strjoin(tmp, bin);
-    free(tmp);
-    return (path);
+	char	*tmp;
+
+	tmp = ft_strjoin(path, "/");
+	path = ft_strjoin(tmp, bin);
+	free(tmp);
+	return (path);
 }

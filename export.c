@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:02:56 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/29 14:46:34 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/10/28 08:18:35 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	help_export(t_savage *savage, char *arg, int i)
 	arg_value = bs_parse(backup, 3);
 	free(backup);
 	backup_env = new_env(&arg_value, savage->env, j);
-	free_env(savage->env);
 	free(arg_value);
 	savage->env = backup_env;
 }

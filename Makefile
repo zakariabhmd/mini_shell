@@ -1,8 +1,8 @@
 NAME = minishell
 CC = cc
-CFLAGS = #-Wall -Werror -Wextra
+CFLAGS = -fsanitize=address -g #-Wall -Werror -Wextra
 SRC = main.c utiles.c cd.c echo.c exit.c export.c pwd.c bulttin.c help.c check_export.c env.c error.c parse.c\
-unset.c free_test.c commands.c mini.c search.c
+unset.c search.c command.c free_alloc.c
 OBJ = $(SRC:.c=.o)
 RM = rm -rf
 LDFLAGS="-L/goinfre/zbabahmi/homebrew/opt/readline/lib"
