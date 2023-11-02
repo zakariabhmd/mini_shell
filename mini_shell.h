@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:09:07 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/02 06:24:46 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/02 06:34:26 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ int		count_pipe(char **arg);
 void	mini(char *input, t_savage *savage);
 int		bulttin_check(t_savage *savage);
 char	*search_in_pwd(t_savage *savage);
+char    generate_path(char *path, char *bin);
 
 #endif

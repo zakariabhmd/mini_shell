@@ -74,3 +74,12 @@ char    **new_env(char **arg, char **env, int pos)
         backup[i + 1] = NULL;
     return (backup);
 }
+
+char    generate_path(char *path, char *bin)
+{
+    char    *tmp;
+    tmp = ft_strjoin(path, "/");
+    path = ft_strjoin(tmp, bin);
+    free(tmp);
+    return (path);
+}
