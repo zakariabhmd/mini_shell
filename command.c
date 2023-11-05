@@ -6,11 +6,50 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 17:47:06 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/02 18:15:35 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/05 22:42:05 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+char	*update_lastarg(char **arg)
+{
+	char	*res;
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	while (arg[i])
+		i++;
+	tmp = ft_strchr(arg[i - 1], '=');
+	if (tmp)
+		*tmp = '\0';
+	res = ft_strjoin("_=", arg[i - 1]);
+	return (res);
+}
+
+char	**set_args(char *str)
+{
+	char	**args;
+	char	*bs;
+	int		i;
+
+	if (!str)
+		return (NULL);
+	args = lexical_analysis(str, ' ');
+	i = 0;
+	while (args[i])
+	{
+		bs = bs_parse(args[i], 2);
+		free(args[i]);
+		args[i] = ft_strdup(bs);
+		free(bs);
+		i++;
+	}
+	if (!args)
+		return (NULL);
+	return (args);
+}
 
 char	*append_pwd(char *value)
 {
@@ -68,7 +107,7 @@ char	*get_path(t_savage *savage)
 	return (pwd);
 }
 
-void exev_args(t_savage *savage)
+void	exev_args(t_savage *savage)
 {
 	char	*path;
 
@@ -86,4 +125,18 @@ void exev_args(t_savage *savage)
 			exit(126);
 		}
 	}
+}
+
+void	check_command(t_savage *savage)
+{
+	// char	*exp;
+
+	// exp = expansion(savage, &savage->command[0]);
+	// savage->agrs = set_args(exp);
+	// savage->first_arg = ft_strdup(savage->agrs[0]);
+	// if (check_redirections(savage) != -1)
+	// {
+		if(!bulttin_check(savage))
+			check_one_command(savage);
+	// }
 }

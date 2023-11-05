@@ -6,43 +6,55 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:08:55 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/02 21:41:30 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/04 20:25:49 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 #include <stdio.h>
 
-int	ft_expt(t_savage *savage)
-{
-	int	test;
+// int	ft_expt(t_savage *savage)
+// {
+// 	int	test;
 
-	test = 0;
-	claner_env("_", savage->env);
-	test = export(savage, NULL);
-	return (test);
+// 	test = 0;
+// 	claner_env("_", savage->env);
+// 	test = export(savage, NULL);
+// 	return (test);
+// }
+
+// int	bulttin_check(t_savage *savage)
+// {
+// 	int	ret;
+
+// 	ret = 0;
+// 	if (ft_strcmp(savage->agrs[0], "exit"))
+// 		to_exit(savage);
+// 	else if (ft_strcmp(savage->agrs[0], "echo"))
+// 		ret = echo_printer(savage->agrs + 1);
+// 	else if (ft_strcmp(savage->agrs[0], "cd"))
+// 		ret = chdir(*savage->agrs + 1);
+// 	else if (ft_strcmp(savage->agrs[0], "pwd"))
+// 		ret = pwd_com();
+// 	// else if (ft_strcmp(savage->agrs[0], "export"))
+// 	// 	ret = ft_expt(savage);
+// 	// else if(ft_strcmp(savage->agrs[0], "unset"))
+// 	// 	ret = unset(savage);
+// 	return (ret);
+// }
+
+void	get_args(t_savage *savage, int i)
+{
+	char	*exp;
+
+	exp = expansion(savage, &savage->command[i]);
+	savage->agrs = set_args(exp);
+	free(exp);
+	if (savage->agrs[0])
+		savage->first_arg = ft_strdup(savage->agrs[0]);
 }
 
-int	bulttin_check(t_savage *savage)
-{
-	int	ret;
-
-	ret = 0;
-	if (ft_strcmp(savage->agrs[0], "exit"))
-		to_exit(savage);
-	else if (ft_strcmp(savage->agrs[0], "echo"))
-		ret = echo_printer(savage->agrs + 1);
-	else if (ft_strcmp(savage->agrs[0], "cd"))
-		ret = chdir(*savage->agrs + 1);
-	else if (ft_strcmp(savage->agrs[0], "pwd"))
-		ret = pwd_com();
-	// else if (ft_strcmp(savage->agrs[0], "export"))
-	// 	ret = ft_expt(savage);
-	// else if(ft_strcmp(savage->agrs[0], "unset"))
-	// 	ret = unset(savage);
-	return (ret);
-}
-int	child(t_savage *savage, int fd[2], int i)
+int	child_proc(t_savage *savage, int fd[2], int i)
 {
 	pid_t	pid;
 
@@ -60,36 +72,32 @@ int	child(t_savage *savage, int fd[2], int i)
 	return (pid);
 }
 
-int count_pipe(char **arg)
+void	multipale_cmds(t_savage *savage, int x)
 {
-	int i;
+	int		stdi = dup(0);
+	int		stdo = dup(1);
+	int		i = 0;
+	int		fd[2];
+	pid_t	pid;
+	pid_t	top;
 
-	i = 0;
-	while (arg[i])
-		i++;
-	return (i - 1);
-}
-
-void multipale_cmds(t_savage *savage, int x)
-{
-	int stdi = dup(0);
-	int stdo = dup(1);
-	int i = 0;
-	int fd[2];
-	pid_t pid;
 
 	while (i <= x)
 	{
+		get_args(savage, i);
 		pipe(fd);
-		pid = child(savage, fd, i);
+		pid = child_proc(savage, fd, i);
 		dup2(fd[0], 0);
-		if(savage->command[x])
+		if (savage->command[i])
 			waitpid(pid, &savage->exit_status, WNOHANG);
 		savage->exit_status = WEXITSTATUS(savage->exit_status);
 		close(fd[0]);
+		free_env(savage->agrs);
+		if (*savage->first_arg)
+			free(savage->first_arg);
 		i++;
 	}
-	pid_t top = wait(&savage->exit_status);
+	top = wait(&savage->exit_status);
 	while (top > 0)
 	{
 		if (top < pid)
@@ -97,24 +105,28 @@ void multipale_cmds(t_savage *savage, int x)
 		top = wait(&savage->exit_status);
 	}
 	savage->exit_status = WEXITSTATUS(savage->exit_status);
+	// while (i <= x)
+	// {
+	// 	get_args(savage, i);
+	// 	pipe(fd);
+	// 	pid = child(savage, fd, i);
+	// 	dup2(fd[0], 0);
+	// 	if(savage->command[x])
+	// 		waitpid(pid, &savage->exit_status, WNOHANG);
+	// 	savage->exit_status = WEXITSTATUS(savage->exit_status);
+	// 	close(fd[0]);
+	// 	i++;
+	// }
+	// pid_t top = wait(&savage->exit_status);
+	// while (top > 0)
+	// {
+	// 	if (top < pid)
+	// 		savage->exit_status = WEXITSTATUS(savage->exit_status);
+	// 	top = wait(&savage->exit_status);
+	// }
+	// savage->exit_status = WEXITSTATUS(savage->exit_status);
 	dup2(stdi, 0);
 	dup2(stdo, 1);
-}
-
-char	*update_lastarg(char **arg)
-{
-	char	*res;
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	while (arg[i])
-		i++;
-	tmp = ft_strchr(arg[i - 1], '=');
-	if (tmp)
-		*tmp = '\0';
-	res = ft_strjoin("_=", arg[i - 1]);
-	return (res);
 }
 
 void check_one_command(t_savage *savage)
@@ -172,12 +184,14 @@ void check_one_command(t_savage *savage)
 
 
 
-int main (int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 
 	t_savage *savage = ft_calloc(1, sizeof(t_savage));
 	char *line;
+	savage->exit_status = 0;
 	savage->env = strdup_env(env);
+	// char	*exp;
 	while (1)
 	{
 		line = readline("minishell-> ");
@@ -192,11 +206,20 @@ int main (int ac, char **av, char **env)
 		while (str[x])
 			x++;
 		// char **path = ft_split(holder2, ':');
-		if (x == 1){
-			if(!bulttin_check(savage))
-				check_one_command(savage);
+		if (x == 1)
+		{
+			check_command(savage);
+			// exp = expansion(savage, &savage->command[0]);
+			// savage->agrs = set_args(exp);
+			// savage->first_arg = ft_strdup(savage->agrs[0]);
+			// if (check_redirections(savage) != -1)
+			// {
+			// 	if(!bulttin_check(savage))
+			// 		check_one_command(savage);
+			// }
 		}
-		else if (x > 1){
+		else if (x > 1)
+		{
 			multipale_cmds(savage, x);
 		}
 

@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:37:08 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/02 19:06:21 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/04 19:46:50 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@ char	*get_env(t_savage *savage, char *arg)
 	return (ft_strdup(" "));
 }
 
-void	claner_env(char *arg, char **env)
+void	env_cleaner(char *args, char **env)
 {
 	int	i;
 	int	size;
 
-	size = ft_strlen(arg);
+	size = ft_strlen(args);
 	i = 0;
 	while (env[i])
 	{
-		if (!ft_strncmp(arg, env[i], size))
+		if (!ft_strncmp(args, env[i], size))
 			break ;
 		i++;
 	}
@@ -75,18 +75,18 @@ void	path_search(char **env)
 }
 
 
-int	envirment(t_savage *savage, char **arg)
+int	environment(t_savage *savage, char **var)
 {
-	int i;
-	char **env_writer;
+	int		i;
+	char	**env_writer;
 
-	if(savage->agrs[i])
+	if (savage->agrs[1])
 	{
 		ft_putendl_fd("env: too many arguments", 1);
 		return (1);
 	}
 	i = 0;
-	env_writer = arg;
+	env_writer = var;
 	path_search(env_writer);
 	while (env_writer[i])
 		ft_putendl_fd(env_writer[i++], 1);

@@ -12,7 +12,7 @@
 
 #include "mini_shell.h"
 
-char **strdup_env(char **env)
+char    **strdup_env(char **env)
 {
     char **tmp;
     int len;
@@ -48,31 +48,31 @@ char	**reallocation(char **env, int added)
 	return (backup);
 }
 
-char    **new_env(char **arg, char **env, int pos)
+char	**renew_env(char **var, char **env, int pos)
 {
-    char    **backup;
-    int     i;
-    int     j;
+	char	**backup;
+	int		i;
+	int		j;
 
-    i = 0;
-    j = 0;
-    if(env[pos])
-        backup = reallocation(env, 0);
-    else
-        backup = reallocation(env, 1);
-    backup[pos] = ft_strdup(*arg);
-    while(env[i])
-    {
-        if(j != pos)
-            backup[j] = ft_strdup(env[i]);
-        i++;
-        j++;
-    }
-    if(j != pos)
-        backup[j] = NULL;
-    else
-        backup[i + 1] = NULL;
-    return (backup);
+	i = 0;
+	j = 0;
+	if (env[pos])
+		backup = reallocation(env, 0);
+	else
+		backup = reallocation(env, 1);
+	backup[pos] = ft_strdup(*var);
+	while (env[i])
+	{
+		if (j != pos)
+			backup[j] = ft_strdup(env[i]);
+		i++;
+		j++;
+	}
+	if (j != pos)
+		backup[j] = NULL;
+	else
+		backup[i + 1] = NULL;
+	return (backup);
 }
 
 char	*generate_absolute_path(char *path, char *bin)
@@ -84,3 +84,4 @@ char	*generate_absolute_path(char *path, char *bin)
 	free(tmp);
 	return (path);
 }
+

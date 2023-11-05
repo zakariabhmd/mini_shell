@@ -6,13 +6,13 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 06:23:53 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/18 12:33:35 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/04 13:08:32 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-void free_2d(char **str)
+void	   free_2d(char **str)
 {
 	int	idx;
 
