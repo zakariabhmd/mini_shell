@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbabahmi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 18:11:18 by zbabahmi          #+#    #+#             */
-/*   Updated: 2022/10/26 00:29:49 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/04 17:15:51 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	counter(const char *tpm, char c)
+int	counter_w(const char *tpm, char c)
 {
 	int	i;
 	int	count;
@@ -56,7 +56,7 @@ char	**ft_split(char const *s, char c)
 
 	i = 0;
 	j = -1;
-	word = counter(s, c);
+	word = counter_w(s, c);
 	sp = (char **)malloc((word + 1) * sizeof(char *));
 	if (!sp)
 		return (0);
