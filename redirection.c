@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 12:50:54 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/04 14:18:05 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/06 22:51:50 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,8 @@ int red_append(t_savage *savage, int i)
 	return (fd);
 }
 
+// int old_fd = 1;
+
 int red_output(t_savage *savage, int i)
 {
 	int fd;
@@ -162,7 +164,10 @@ int red_output(t_savage *savage, int i)
 			ft_error(" No such file or directory", savage->agrs[i + 1]);
 		}
 		else
+		{
 			dup2(fd, 1);
+		}
+
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:08:55 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/04 20:25:49 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/07 20:42:40 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	multipale_cmds(t_savage *savage, int x)
 
 	while (i <= x)
 	{
-		get_args(savage, i);
+		// get_args(savage, i);
 		pipe(fd);
 		pid = child_proc(savage, fd, i);
 		dup2(fd[0], 0);
@@ -187,6 +187,8 @@ void check_one_command(t_savage *savage)
 int	main(int ac, char **av, char **env)
 {
 
+	(void)ac;
+	(void)av;
 	t_savage *savage = ft_calloc(1, sizeof(t_savage));
 	char *line;
 	savage->exit_status = 0;
@@ -195,6 +197,12 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		line = readline("minishell-> ");
+		if(!line)
+		{
+			free(line);
+			free(savage->env);
+			exit(savage->exit_status);
+		}
 		add_history(line);
 		 if (line)
 		 {
@@ -222,7 +230,6 @@ int	main(int ac, char **av, char **env)
 		{
 			multipale_cmds(savage, x);
 		}
-
 	}
 }
 // }
