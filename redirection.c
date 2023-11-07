@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 12:50:54 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/06 22:51:50 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/07 21:24:16 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	is_redirect(char *red)
 	return (0);
 }
 
-int red_error(t_savage *savage, int input, int output)
+int	red_error(t_savage *savage, int input, int output)
 {
-	char *msg;
+	char	*msg;
 
 	msg = NULL;
 	if (input > 2)
@@ -102,7 +102,7 @@ int	red_exists(t_savage *savage, int i)
 	}
 	return (fd);
 }
-int red_input(t_savage *savage, int i)
+int	red_input(t_savage *savage, int i)
 {
 	int	fd;
 
@@ -126,9 +126,9 @@ int red_input(t_savage *savage, int i)
 	return (fd);
 }
 
-int red_append(t_savage *savage, int i)
+int	red_append(t_savage *savage, int i)
 {
-	int fd;
+	int	fd;
 
 	fd = -1;
 	if (!savage->agrs[i + 1])
@@ -151,9 +151,9 @@ int red_append(t_savage *savage, int i)
 
 // int old_fd = 1;
 
-int red_output(t_savage *savage, int i)
+int	red_output(t_savage *savage, int i)
 {
-	int fd;
+	int	fd;
 
 	fd = -1;
 	if (savage->agrs[i + 1])
@@ -177,7 +177,7 @@ int red_output(t_savage *savage, int i)
 	return (fd);
 }
 
-int herdoc(t_savage *savage, int i)
+int	herdoc(t_savage *savage, int i)
 {
 	int		fd;
 	char	*input;
@@ -208,6 +208,7 @@ int	check_redirections(t_savage *savage)
 {
 	int	fd;
 	int	i;
+	int	count;
 
 	i = 0;
 	while (savage->agrs[i])
@@ -237,15 +238,17 @@ int	check_redirections(t_savage *savage)
 		}
 		i++;
 	}
-	int count = 0;
-	while (savage->agrs[count]) {
+	count = 0;
+	while (savage->agrs[count])
+	{
 		if (is_redirect(savage->agrs[count]))
-			break;
+			break ;
 		count++;
 	}
 	char **dst = malloc(sizeof(char *) * (count + 1));
 	count = 0;
-	while (savage->agrs[count]) {
+	while (savage->agrs[count])
+	{
 		if (is_redirect(savage->agrs[count]))
 			break;
 		dst[count] = savage->agrs[count];

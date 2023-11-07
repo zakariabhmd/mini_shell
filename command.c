@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 17:47:06 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/06 00:48:20 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/07 21:15:40 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	check_command(t_savage *savage)
 	savage->first_arg = ft_strdup(savage->agrs[0]);
 	if (check_redirections(savage) != -1)
 	{
-		if(!bulttin_check(savage))
+		if (!bulttin_check(savage))
 			check_one_command(savage);
 	}
 }

@@ -12,26 +12,26 @@
 
 #include "mini_shell.h"
 
-char    **strdup_env(char **env)
+char	**strdup_env(char **env)
 {
-    char **tmp;
-    int len;
-    int i;
+	char	**tmp;
+	int		len;
+	int		i;
 
-    len = 0;
-    i = 0;
-    while(env[len])
-        len++;
-    tmp = malloc(sizeof(char *) * len + 13);
-    if (!tmp)
-        return (NULL);
-    while (*env && env[i])
-    {
-        tmp[i] = ft_strdup(env[i]);
-        i++;
-    }
-    tmp[i] = NULL;
-    return (tmp);
+	len = 0;
+	i = 0;
+	while (env[len])
+		len++;
+	tmp = malloc(sizeof(char *) * len + 13);
+	if (!tmp)
+		return (NULL);
+	while (*env && env[i])
+	{
+		tmp[i] = ft_strdup(env[i]);
+		i++;
+	}
+	tmp[i] = NULL;
+	return (tmp);
 }
 
 char	**reallocation(char **env, int added)
@@ -84,4 +84,3 @@ char	*generate_absolute_path(char *path, char *bin)
 	free(tmp);
 	return (path);
 }
-

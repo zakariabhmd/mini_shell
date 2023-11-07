@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:09:07 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/04 20:24:17 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/07 21:24:47 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ int		bulttin_check(t_savage *savage);
 int		check_valid_name(char *var);
 int		invalid_export(t_savage *savage, char *var, char *cmd);
 char	*write_q_and_bslash(char *s);
-void	get_olddir(t_savage *savage,  char *oldpwd);
+void	get_olddir(t_savage *savage, char *oldpwd);
 void	dir_changer_err(t_savage *savage, char *path);
 int		cd(t_savage *savage);
-void	set_path(t_savage *savage ,char *path, char *key);
+void	set_path(t_savage *savage , char *path, char *key);
 int		unset(t_savage *savage);
 int		invalid_char(char *var, int i);
 char	*update_lastarg(char **arg);

@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 17:51:54 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/02 19:09:21 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/07 21:21:30 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	to_lower(char *in)
 	while (in[i])
 	{
 		in[i] = ft_tolower(in[i]);
-        i++;
+		i++;
 	}
 }
 

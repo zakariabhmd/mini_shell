@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:02:56 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/04 18:30:18 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/07 21:31:47 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,10 @@ int	write_env(t_savage *savage)
 	backup_env = strdup_env(savage->env);
 	backup_env1 = check_env(backup_env);
 	environment(savage, backup_env1);
-	// free_env(backup_env);
-	// free_env(backup_env1);
 	return (1);
 }
 
-void	do_export(t_savage *savage, char *var , int j)
+void	do_export(t_savage *savage, char *var, int j)
 {
 	int		i;
 	int		var_len;
@@ -88,24 +86,24 @@ int	alpha(char *str)
 	return (0);
 }
 
-int export(t_savage *savage, char *var)
+int	export(t_savage *savage, char *var)
 {
-    char *backup;
-    int i;
+	char	*backup;
+	int		i;
 
-    i = 1;
-    if (var && check_valid_name(var))
-        do_export(savage, var, 0);
-    else if (var)
-        invalid_export(savage, var, "export");
+	i = 1;
+	if (var && check_valid_name(var))
+		do_export(savage, var, 0);
+	else if (var)
+		invalid_export(savage, var, "export");
 	else if (!savage->agrs[i])
-		return(write_env(savage));
+		return (write_env(savage));
 	else
 	{
 		while (savage->agrs[i])
 		{
 			if (!check_valid_name(savage->agrs[i]))
-				invalid_export(savage,savage->agrs[i], "export");
+				invalid_export(savage, savage->agrs[i], "export");
 			else if ((backup = ft_strchr(savage->agrs[i], '=')) && backup != savage->agrs[i])
 				do_export(savage, var, i);
 			else if (alpha(savage->agrs[i]) && !(ft_strchr(savage->agrs[i], '=')))

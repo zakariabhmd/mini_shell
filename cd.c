@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:57:50 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/04 19:42:50 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/07 21:28:26 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,3 @@ int	cd(t_savage *savage)
 	free(path);
 	return (1);
 }
-

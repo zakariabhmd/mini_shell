@@ -30,17 +30,16 @@ int	valid_key_name(char *str)
 
 int	unset(t_savage *savage)
 {
-    int i;
+	int	i;
 
-    i = 1;
-
-    while(savage->agrs[i])
-    {
-        if(valid_key_name(savage->agrs[i]))
-            env_cleaner(savage->agrs[i], savage->env);
-        else
-            invalid_export(savage, savage->agrs[i], "unset");
-        i++;
-    }
-    return (1);
+	i = 1;
+	while (savage->agrs[i])
+	{
+		if (valid_key_name(savage->agrs[i]))
+			env_cleaner(savage->agrs[i], savage->env);
+		else
+			invalid_export(savage, savage->agrs[i], "unset");
+		i++;
+	}
+	return (1);
 }

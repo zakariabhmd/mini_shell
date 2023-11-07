@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:49:20 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/18 13:08:11 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/07 21:16:12 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	echo_printer(char **arg)
 			i++;
 		}
 		else
-			break;
+			break ;
 	}
 	while (arg[i])
 	{

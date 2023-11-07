@@ -6,12 +6,11 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 10:13:29 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/04 20:25:09 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/07 21:12:01 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
 
 int	ft_expt(t_savage *savage)
 {
@@ -79,7 +78,7 @@ int	bulttin_check(t_savage *savage)
 		ret = pwd_com();
 	else if (ft_strcmp(savage->agrs[0], "export"))
 		ret = ft_expt(savage);
-	else if(ft_strcmp(savage->agrs[0], "unset"))
+	else if (ft_strcmp(savage->agrs[0], "unset"))
 		ret = unset(savage);
 	else
 		return (env_exec(savage));
@@ -88,7 +87,6 @@ int	bulttin_check(t_savage *savage)
 	free(backup);
 	return (ret);
 }
-
 
 // int	bulttin_check(t_savage *savage)
 // {
