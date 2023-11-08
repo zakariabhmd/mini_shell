@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:09:07 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/07 21:24:47 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/08 20:40:42 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <fcntl.h>
 
 typedef struct s_savage {
-	char	*command;
+	char	**command;
 	char	**agrs;
 	char	**env;
 	char	*first_arg;
@@ -36,7 +36,16 @@ typedef struct s_savage {
 	int		exit_prev;
 }t_savage;
 
-void	free_2d(char **str);
+typedef struct s_cmds{
+	pid_t	pid;
+	pid_t	top;
+	int		fd[2];
+	int		stdi;
+	int		stdo;
+	int		i;
+}t_cmds;
+
+int		count_pipe(char **arg);
 int		ft_strcmp(char *s1, char *s2);
 int		echo_printer(char **arg);
 int		pwd_com(void);
@@ -72,9 +81,11 @@ char	*write_q_and_bslash(char *s);
 void	get_olddir(t_savage *savage, char *oldpwd);
 void	dir_changer_err(t_savage *savage, char *path);
 int		cd(t_savage *savage);
-void	set_path(t_savage *savage , char *path, char *key);
+void	set_path(t_savage *savage, char *path, char *key);
 int		unset(t_savage *savage);
 int		invalid_char(char *var, int i);
 char	*update_lastarg(char **arg);
+void	multipale_cmds(t_savage *savage, t_cmds *cmd);
+void	get_args(t_savage *savage, int i);
 
 #endif

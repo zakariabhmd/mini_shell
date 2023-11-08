@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 12:50:54 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/07 21:24:16 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/08 19:50:39 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,7 @@ int	check_redirections(t_savage *savage)
 	int	count;
 
 	i = 0;
+	
 	while (savage->agrs[i])
 	{
 		if (valide_redirection(savage, savage->agrs[i]))
