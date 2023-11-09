@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 12:50:54 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/09 07:04:01 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/09 08:03:50 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ typedef struct t_data
 
 int	is_redirect(char *red)
 {
-	if (ft_strcmp(red, ">") || ft_strcmp(red, ">>") \
-		|| ft_strcmp(red, "<") || ft_strcmp(red, "<<"))
+	if (!(ft_strcmp(red, ">")) || !(ft_strcmp(red, ">>")) \
+		|| !(ft_strcmp(red, "<")) || !(ft_strcmp(red, "<<")))
 		return (1);
 	return (0);
 }
@@ -341,10 +341,11 @@ int	herdoc(t_savage *savage, int i)
 	fd = open("/tmp/test", O_CREAT | O_WRONLY, 0777);
 	while (1)
 	{
+		signal(SIGINT, waitsignal);
 		input = readline("heredoc-> ");
 		if (!input)
 			break ;
-		if (ft_strcmp(input, savage->agrs[i + 1]))
+		if (!(ft_strcmp(input, savage->agrs[i + 1])))
 		{
 			free(input);
 			break ;
@@ -369,7 +370,7 @@ int	check_redirections(t_savage *savage)
 	{
 		if (valide_redirection(savage, savage->agrs[i]))
 		{
-			if (ft_strcmp(savage->agrs[i], "<<") && savage->agrs[i + 1])
+			if (!(ft_strcmp(savage->agrs[i], "<<")) && savage->agrs[i + 1])
 			{
 				if (fd != -1)
 				{
@@ -380,11 +381,11 @@ int	check_redirections(t_savage *savage)
 					}
 				}
 			}
-			else if (ft_strcmp(savage->agrs[i], "<"))
+			else if (!(ft_strcmp(savage->agrs[i], "<")))
 				fd = red_input(savage, i);
-			else if (ft_strcmp(savage->agrs[i], ">"))
+			else if (!(ft_strcmp(savage->agrs[i], ">")))
 				fd = red_output(savage, i);
-			else if (ft_strcmp(savage->agrs[i], ">>"))
+			else if (!(ft_strcmp(savage->agrs[i], ">>")))
 				fd = red_append(savage, i);
 		}
 		else

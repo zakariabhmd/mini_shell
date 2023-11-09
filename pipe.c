@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:30:20 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/09 07:08:20 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/09 08:06:07 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	child_proc(t_savage *savage, int fd[2], int i)
 		close(fd[0]);
 		if (savage->command[i + 1])
 			dup2(fd[1], 1);
+		check_redirections(savage);
 		exev_args(savage);
 		close(fd[1]);
 		exit(savage->exit_status);
