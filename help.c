@@ -84,3 +84,21 @@ char	*generate_absolute_path(char *path, char *bin)
 	free(tmp);
 	return (path);
 }
+
+void	signal_check(int sig)
+{
+	if (sig == SIGQUIT)
+	{
+		rl_redisplay();
+		signal(sig, signal_check);
+	}
+	else if (sig == SIGINT)
+	{
+		printf("\n");
+		// rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+		signal(sig, signal_check);
+	}
+}
+

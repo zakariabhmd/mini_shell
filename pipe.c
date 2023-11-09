@@ -6,11 +6,26 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:30:20 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/08 20:40:16 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/09 07:08:20 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+
+
+void	duplicate_fd(t_cmds *cmd)
+{
+	cmd->i = 0;
+	cmd->stdi = dup(0);
+	cmd->stdo = dup(1);
+}
+
+void	duplicate1_fd(t_cmds *cmd)
+{
+	dup2(cmd->stdi, 0);
+	dup2(cmd->stdo, 1);
+}
 
 int	child_proc(t_savage *savage, int fd[2], int i)
 {
@@ -28,19 +43,6 @@ int	child_proc(t_savage *savage, int fd[2], int i)
 	}
 	close(fd[1]);
 	return (pid);
-}
-
-void	duplicate_fd(t_cmds *cmd)
-{
-	cmd->i = 0;
-	cmd->stdi = dup(0);
-	cmd->stdo = dup(1);
-}
-
-void	duplicate1_fd(t_cmds *cmd)
-{
-	dup2(cmd->stdi, 0);
-	dup2(cmd->stdo, 1);
 }
 
 void	multipale_cmds(t_savage *savage, t_cmds *cmd)
@@ -61,6 +63,9 @@ void	multipale_cmds(t_savage *savage, t_cmds *cmd)
 			free(savage->first_arg);
 		cmd->i++;
 	}
+
+	close(cmd->fd[0]);
+	close(cmd->fd[1]);
 	cmd->top = wait(&savage->exit_status);
 	while (cmd->top > 0)
 	{
@@ -70,4 +75,6 @@ void	multipale_cmds(t_savage *savage, t_cmds *cmd)
 	}
 	savage->exit_status = WEXITSTATUS(savage->exit_status);
 	duplicate1_fd(cmd);
+	close(cmd->stdi);
+	close(cmd->stdo);
 }

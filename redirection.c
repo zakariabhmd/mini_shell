@@ -6,11 +6,46 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 12:50:54 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/08 19:50:39 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/09 07:04:01 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+int count_length_two_arr(char **str) {
+	int count = 0;
+	while (str[count])
+		count++;
+	return count;
+}
+
+char	**join_tables(char **table1, char **table2)
+{
+	int		count;
+	int		index;
+	int		size;
+	char	**dst;
+
+	count = 0;
+	index = 0;
+	size = count_length_two_arr(table1) + count_length_two_arr(table2);
+	dst = malloc(sizeof(char *) * (size + 1));
+	while (table1[count])
+		dst[index++] = table1[count++];
+	count = 0;
+	while (table2[count])
+		dst[index++] = table2[count++];
+	dst[index] = NULL;
+	return (dst);
+}
+
+typedef struct t_data
+{
+	char	**dst;
+	int		index;
+	int		count;
+	char	**dst_two;
+}	t_data;
 
 int	is_redirect(char *red)
 {
@@ -19,6 +54,124 @@ int	is_redirect(char *red)
 		return (1);
 	return (0);
 }
+
+int	count_redirection_and_files(char **args)
+{
+	int	count;
+	int	count_returend;
+
+	count = 0;
+	count_returend = 0;
+	while (args[count])
+	{
+		if (is_redirect(args[count]))
+		{
+			if (args[count + 1])
+				count_returend++;
+			count_returend++;
+		}
+		count++;
+	}
+	if (count_returend == 0)
+		return (1);
+	return (count_returend);
+}
+
+int	count_argment_without_red(char **args)
+{
+	int	count;
+	int	reterned_count;
+
+	count = 0;
+	reterned_count = 0;
+	while (args[count])
+	{
+		if (count == 0 && !is_redirect(args[count]))
+			reterned_count++;
+		else
+			if (count - 1 >= 0 && !is_redirect(args[count - 1]) \
+				&& !is_redirect(args[count]))
+				reterned_count++;
+		count++;
+	}
+	return (reterned_count);
+}
+
+
+int	init_data_structer_sort_args(t_data *data, char **oldargs)
+{
+	data->index = 0;
+	data->count = 0;
+	data->dst = malloc(sizeof(char *) * (count_redirection_and_files(oldargs) + 1));
+	if (!data->dst)
+		return (1);
+	data->dst_two = malloc(sizeof(char *) * (count_argment_without_red(oldargs) + 1));
+	return (0);
+}
+
+void	split_redirection_and_files(t_data *data, char **oldargs)
+{
+	while (oldargs[data->count])
+	{
+		if (is_redirect(oldargs[data->count]))
+		{
+			data->dst[data->index] = oldargs[data->count];
+			data->index++;
+			data->count++;
+			if (!oldargs[data->count])
+				break ;
+			if (oldargs[data->count])
+			{
+				data->dst[data->index] = oldargs[data->count];
+				data->index++;
+			}
+		}
+		if (!*oldargs[data->count])
+			break ;
+		data->count++;
+	}
+	data->dst[data->index] = NULL;
+}
+
+void	split_args_are_not_redirections(t_data *data, char **oldargs)
+{
+	while (oldargs[data->count])
+	{
+		if (data->count == 0 && !is_redirect(oldargs[data->count]))
+		{
+			data->dst_two[data->index] = ft_strdup(oldargs[data->count]);
+			data->index++;
+		}
+		else
+		{
+			if (data->count - 1 >= 0 && !is_redirect(oldargs[data->count - 1]) \
+				&& !is_redirect(oldargs[data->count]))
+			{
+				data->dst_two[data->index] = ft_strdup(oldargs[data->count]);
+				data->index++;
+			}
+		}
+		data->count++;
+	}
+	data->dst_two[data->index] = NULL;
+}
+
+char	**sort_args(char **oldargs)
+{
+	t_data		data;
+	char		**new_args;
+
+	if (init_data_structer_sort_args(&data, oldargs))
+		return (NULL);
+	split_redirection_and_files(&data, oldargs);
+	data.index = 0;
+	data.count = 0;
+	split_args_are_not_redirections(&data, oldargs);
+	new_args = join_tables(data.dst_two, data.dst);
+	return (new_args);
+}
+
+// ------------------------------------------
 
 int	red_error(t_savage *savage, int input, int output)
 {
@@ -165,9 +318,9 @@ int	red_output(t_savage *savage, int i)
 		}
 		else
 		{
-			dup2(fd, 1);
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
 		}
-
 	}
 	else
 	{
@@ -210,8 +363,8 @@ int	check_redirections(t_savage *savage)
 	int	i;
 	int	count;
 
+	savage->agrs = sort_args(savage->agrs);
 	i = 0;
-	
 	while (savage->agrs[i])
 	{
 		if (valide_redirection(savage, savage->agrs[i]))
@@ -222,7 +375,9 @@ int	check_redirections(t_savage *savage)
 				{
 					fd = herdoc(savage, i);
 					if (fd != -1)
+					{
 						dup2(fd, 0);
+					}
 				}
 			}
 			else if (ft_strcmp(savage->agrs[i], "<"))

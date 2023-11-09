@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:09:07 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/08 20:40:42 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/09 06:59:54 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_savage {
 	char	**agrs;
 	char	**env;
 	char	*first_arg;
+	char	*pars;
 	int		exit_status;
 	int		count;
 	int		binary;
@@ -37,6 +38,11 @@ typedef struct s_savage {
 }t_savage;
 
 typedef struct s_cmds{
+	char	*in_quote;
+	char	*buff;
+	char	*tmp;
+	int		start;
+	int		end;
 	pid_t	pid;
 	pid_t	top;
 	int		fd[2];
@@ -73,7 +79,7 @@ char	*expansion(t_savage *savage, char *commands);
 char	**lexical_analysis(char *input, int c);
 char	**set_args(char *str);
 void	check_command(t_savage *savage);
-void	check_one_command(t_savage *savage);
+void	check_one_command(t_savage *savage, int holder);
 int		bulttin_check(t_savage *savage);
 int		check_valid_name(char *var);
 int		invalid_export(t_savage *savage, char *var, char *cmd);
@@ -87,5 +93,7 @@ int		invalid_char(char *var, int i);
 char	*update_lastarg(char **arg);
 void	multipale_cmds(t_savage *savage, t_cmds *cmd);
 void	get_args(t_savage *savage, int i);
+char	*parsing(char *input, t_cmds *norm);
+void	signal_check(int sig);
 
 #endif

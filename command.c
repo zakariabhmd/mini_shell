@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 17:47:06 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/08 19:47:29 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/09 07:25:40 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,16 +140,26 @@ int	count_pipe(char **arg)
 void	check_command(t_savage *savage)
 {
 	char	*exp;
+	int hold;
 
+	hold = dup(STDOUT_FILENO);
 	exp = expansion(savage, savage->command[0]);
 	savage->agrs = set_args(exp);
 	if (!savage->agrs[0])
 		return ;
 	savage->first_arg = ft_strdup(savage->agrs[0]);
-	if (check_redirections(savage) != -1)
+	int holder = check_redirections(savage);
+	if (holder != -1)
 	{
 		if (savage->agrs[0] && !(bulttin_check(savage)))
-			check_one_command(savage);
+			check_one_command(savage, hold);
+	}
+	// close(hold);
+	if (holder != -1)
+	{
+		close(holder);
+		dup2(hold, STDOUT_FILENO);
+		close(hold);
 	}
 	free_env(savage->agrs);
 	free(exp);
