@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:09:07 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/09 06:59:54 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/10 06:50:32 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*expansion(t_savage *savage, char *commands);
 char	**lexical_analysis(char *input, int c);
 char	**set_args(char *str);
 void	check_command(t_savage *savage);
-void	check_one_command(t_savage *savage, int holder);
+void	check_one_command(t_savage *savage);
 int		bulttin_check(t_savage *savage);
 int		check_valid_name(char *var);
 int		invalid_export(t_savage *savage, char *var, char *cmd);
@@ -93,7 +93,10 @@ int		invalid_char(char *var, int i);
 char	*update_lastarg(char **arg);
 void	multipale_cmds(t_savage *savage, t_cmds *cmd);
 void	get_args(t_savage *savage, int i);
-char	*parsing(char *input, t_cmds *norm);
 void	signal_check(int sig);
+void	waitsignal(int sig);
+void	skip_spaces(char *str, int *i);
+int		whitespaces(char c);
+char	*escape_bs(char *str, int c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 18:19:10 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/07 21:58:40 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/10 01:04:26 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ int	ft_strncmp_res(char *s1, char *s2, int len)
 
 int	invalid_char(char *var, int i)
 {
-	if (var[i] == '$' || var[i] == '&' ||
-		var[i] == '@' || var[i] == '!' ||
-		var[i] == ';' || var[i] == ' ' ||
-		var[i] == '\"' || var[i] == '\\' ||
-		var[i] == '-' ||
+	if (var[i] == '$' || var[i] == '&' || \
+		var[i] == '@' || var[i] == '!' || \
+		var[i] == ';' || var[i] == ' ' || \
+		var[i] == '\"' || var[i] == '\\' || \
+		var[i] == '-' || \
 		(var[i] == '\\' && var[i + 1] != '_' && !ft_isdigit(var[i + 1])))
 		return (1);
 	return (0);

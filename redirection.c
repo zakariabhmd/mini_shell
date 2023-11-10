@@ -6,17 +6,20 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 12:50:54 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/09 08:03:50 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/10 07:06:42 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int count_length_two_arr(char **str) {
-	int count = 0;
+int	count_length_two_arr(char **str)
+{
+	int	count;
+
+	count = 0;
 	while (str[count])
 		count++;
-	return count;
+	return (count);
 }
 
 char	**join_tables(char **table1, char **table2)
@@ -97,15 +100,16 @@ int	count_argment_without_red(char **args)
 	return (reterned_count);
 }
 
-
 int	init_data_structer_sort_args(t_data *data, char **oldargs)
 {
 	data->index = 0;
 	data->count = 0;
-	data->dst = malloc(sizeof(char *) * (count_redirection_and_files(oldargs) + 1));
+	data->dst = malloc(sizeof(char *) * \
+		(count_redirection_and_files(oldargs) + 1));
 	if (!data->dst)
 		return (1);
-	data->dst_two = malloc(sizeof(char *) * (count_argment_without_red(oldargs) + 1));
+	data->dst_two = malloc(sizeof(char *) * \
+		(count_argment_without_red(oldargs) + 1));
 	return (0);
 }
 
@@ -240,7 +244,7 @@ int	red_exists(t_savage *savage, int i)
 	{
 		if (stat(savage->agrs[i + 1], &st) != -1)
 		{
-			if (!(st.st_mode & S_IRUSR) ||
+			if (!(st.st_mode & S_IRUSR) || \
 				(st.st_mode & S_IRUSR && (!(st.st_mode & S_IXUSR))))
 			{
 				savage->exit_status = 1;
@@ -255,6 +259,7 @@ int	red_exists(t_savage *savage, int i)
 	}
 	return (fd);
 }
+
 int	red_input(t_savage *savage, int i)
 {
 	int	fd;
@@ -291,7 +296,8 @@ int	red_append(t_savage *savage, int i)
 	}
 	else
 	{
-		if ((fd = open(savage->agrs[i + 1], O_CREAT | O_APPEND | O_WRONLY, 0644)) == -1)
+		if ((fd = open(savage->agrs[i + 1], O_CREAT | \
+			O_APPEND | O_WRONLY, 0644)) == -1)
 		{
 			savage->exit_status = 1;
 			ft_error(" No such file or directory", savage->agrs[i + 1]);
@@ -302,8 +308,6 @@ int	red_append(t_savage *savage, int i)
 	return (fd);
 }
 
-// int old_fd = 1;
-
 int	red_output(t_savage *savage, int i)
 {
 	int	fd;
@@ -311,7 +315,8 @@ int	red_output(t_savage *savage, int i)
 	fd = -1;
 	if (savage->agrs[i + 1])
 	{
-		if ((fd = open(savage->agrs[i + 1], O_CREAT | O_TRUNC | O_WRONLY, 0644)) == -1)
+		if ((fd = open(savage->agrs[i + 1], \
+			O_CREAT | O_TRUNC | O_WRONLY, 0644)) == -1)
 		{
 			savage->exit_status = 1;
 			ft_error(" No such file or directory", savage->agrs[i + 1]);
@@ -336,11 +341,13 @@ int	herdoc(t_savage *savage, int i)
 	char	*input;
 
 	fd = -1;
+	input = ft_calloc(1, 1);
 	savage->exit_status = 1;
 	unlink("/tmp/test");
 	fd = open("/tmp/test", O_CREAT | O_WRONLY, 0777);
 	while (1)
 	{
+		free(input);
 		signal(SIGINT, waitsignal);
 		input = readline("heredoc-> ");
 		if (!input)
@@ -360,9 +367,10 @@ int	herdoc(t_savage *savage, int i)
 
 int	check_redirections(t_savage *savage)
 {
-	int	fd;
-	int	i;
-	int	count;
+	int		fd;
+	int		i;
+	int		count;
+	char	**dst;
 
 	savage->agrs = sort_args(savage->agrs);
 	i = 0;
@@ -402,12 +410,12 @@ int	check_redirections(t_savage *savage)
 			break ;
 		count++;
 	}
-	char **dst = malloc(sizeof(char *) * (count + 1));
+	dst = malloc(sizeof(char *) * (count + 1));
 	count = 0;
 	while (savage->agrs[count])
 	{
 		if (is_redirect(savage->agrs[count]))
-			break;
+			break ;
 		dst[count] = savage->agrs[count];
 		count++;
 	}

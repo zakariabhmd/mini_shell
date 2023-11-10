@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 10:13:29 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/08 20:36:50 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/09 07:32:44 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	env_exec(t_savage *savage)
 	char	*backup;
 
 	low = lower(savage->agrs[0]);
-	if (ft_strcmp(low, "env"))
+	if (!(ft_strcmp(low, "env")))
 	{
 		path = get_path(savage);
 		backup = ft_strjoin("_=", path);
@@ -68,17 +68,17 @@ int	bulttin_check(t_savage *savage)
 	char	*backup;
 
 	ret = 0;
-	if (ft_strcmp(savage->agrs[0], "exit"))
+	if (!(ft_strcmp(savage->agrs[0], "exit")))
 		to_exit(savage);
-	else if (ft_strcmp(savage->agrs[0], "echo"))
+	else if (!(ft_strcmp(savage->agrs[0], "echo")))
 		ret = echo_printer(savage->agrs + 1);
-	else if (ft_strcmp(savage->agrs[0], "cd"))
+	else if (!(ft_strcmp(savage->agrs[0], "cd")))
 		ret = cd(savage);
-	else if (ft_strcmp(savage->agrs[0], "pwd"))
+	else if (!(ft_strcmp(savage->agrs[0], "pwd")))
 		ret = pwd_com();
-	else if (ft_strcmp(savage->agrs[0], "export"))
+	else if (!(ft_strcmp(savage->agrs[0], "export")))
 		ret = ft_expt(savage);
-	else if (ft_strcmp(savage->agrs[0], "unset"))
+	else if (!(ft_strcmp(savage->agrs[0], "unset")))
 		ret = unset(savage);
 	else
 		return (env_exec(savage));

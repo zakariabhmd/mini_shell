@@ -6,13 +6,11 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:30:20 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/09 08:06:07 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/10 06:42:05 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-
 
 void	duplicate_fd(t_cmds *cmd)
 {
@@ -46,9 +44,8 @@ int	child_proc(t_savage *savage, int fd[2], int i)
 	return (pid);
 }
 
-void	multipale_cmds(t_savage *savage, t_cmds *cmd)
+void	pipe_help(t_savage *savage, t_cmds *cmd)
 {
-	duplicate_fd(cmd);
 	while (cmd->i <= savage->count)
 	{
 		get_args(savage, cmd->i);
@@ -64,7 +61,12 @@ void	multipale_cmds(t_savage *savage, t_cmds *cmd)
 			free(savage->first_arg);
 		cmd->i++;
 	}
+}
 
+void	multipale_cmds(t_savage *savage, t_cmds *cmd)
+{
+	duplicate_fd(cmd);
+	pipe_help(savage, cmd);
 	close(cmd->fd[0]);
 	close(cmd->fd[1]);
 	cmd->top = wait(&savage->exit_status);

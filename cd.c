@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:57:50 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/07 21:28:26 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/09 07:32:53 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	cd(t_savage *savage)
 	if (!loc || !ft_strncmp(loc, "~", 2))
 	{
 		path = get_env(savage, "HOME");
-		if (ft_strcmp(path, ""))
+		if (!(ft_strcmp(path, "")))
 			return (home_check(savage, path));
 	}
 	else if (!ft_strncmp(loc, ".", 2) || !ft_strncmp(loc, "", 1))

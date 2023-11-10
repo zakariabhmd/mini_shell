@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 17:47:06 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/09 07:25:40 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/10 06:55:38 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,54 +107,26 @@ char	*get_path(t_savage *savage)
 	return (pwd);
 }
 
-void	exev_args(t_savage *savage)
-{
-	char	*path;
-
-	if (!bulttin_check(savage))
-	{
-		path = get_path(savage);
-		if (path == NULL)
-		{
-			printf("minishell: %s: command not found\n", savage->agrs[0]);
-			exit(127);
-		}
-		if (execve(path, savage->agrs, savage->env) == -1)
-		{
-			perror("minishell: execve");
-			exit(126);
-		}
-	}
-}
-
-int	count_pipe(char **arg)
-{
-	int i;
-
-	i = 0;
-	while (arg[i])
-		i++;
-	return (i - 1);
-}
-
 void	check_command(t_savage *savage)
 {
 	char	*exp;
-	int hold;
+	int		hold;
+	int		holder;
 
 	hold = dup(STDOUT_FILENO);
 	exp = expansion(savage, savage->command[0]);
+	if (exp == NULL)
+		return ;
 	savage->agrs = set_args(exp);
 	if (!savage->agrs[0])
 		return ;
 	savage->first_arg = ft_strdup(savage->agrs[0]);
-	int holder = check_redirections(savage);
+	holder = check_redirections(savage);
 	if (holder != -1)
 	{
 		if (savage->agrs[0] && !(bulttin_check(savage)))
-			check_one_command(savage, hold);
+			check_one_command(savage);
 	}
-	// close(hold);
 	if (holder != -1)
 	{
 		close(holder);

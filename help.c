@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 06:02:58 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/26 06:02:58 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/10 01:03:04 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,8 @@ void	signal_check(int sig)
 	else if (sig == SIGINT)
 	{
 		printf("\n");
-		// rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 		signal(sig, signal_check);
 	}
 }
-

@@ -6,24 +6,42 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:49:20 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/07 21:16:12 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/10 06:52:33 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
+int	check_multiple_new_line(char *arg)
+{
+	int	idx;
+
+	idx = 0;
+	if (arg[idx] == '-')
+		idx++;
+	while (arg[idx])
+	{
+		if (arg[idx] != 'n')
+			return (0);
+		idx++;
+	}
+	if (idx == 1)
+		return (0);
+	return (1);
+}
+
 int	echo_printer(char **arg)
 {
-	int	i;
-	int	sign;
+	int		sign;
+	int		i;
 
 	i = 0;
-	sign = 1;
+	sign = 0;
 	while (arg[i])
 	{
 		if (!ft_strncmp(arg[i], "-n", 2))
 		{
-			sign = 0;
+			sign = check_multiple_new_line(arg[i]);
 			i++;
 		}
 		else
@@ -36,7 +54,7 @@ int	echo_printer(char **arg)
 			ft_putchar_fd(' ', 1);
 		i++;
 	}
-	if (sign)
+	if (sign == 0)
 		ft_putchar_fd('\n', 1);
 	return (1);
 }
