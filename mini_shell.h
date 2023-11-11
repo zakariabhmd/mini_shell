@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:09:07 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/10 06:50:32 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/11 03:56:01 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,6 @@ void	waitsignal(int sig);
 void	skip_spaces(char *str, int *i);
 int		whitespaces(char c);
 char	*escape_bs(char *str, int c);
+char	*parsing(char *input, t_cmds *cmd);
 
 #endif

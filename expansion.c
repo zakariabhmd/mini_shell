@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 16:25:52 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/10 06:50:37 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/11 04:25:59 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ char	*expansion(t_savage *savage, char *commands)
 		res = ft_strjoin(commands, " ");
 		hold = ft_strjoin_free(hold, res);
 		free(res);
+		// free(commands);
 		i++;
 	}
 	free_env(lex_env);
