@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 21:06:00 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/11 21:07:28 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/12 07:26:56 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	**join_tables(char **table1, char **table2)
 	count = 0;
 	index = 0;
 	size = count_length_two_arr(table1) + count_length_two_arr(table2);
-	dst = malloc(sizeof(char *) * (size + 1));
+	dst = ft_malloc((sizeof(char *) * (size + 1)), NULL, ALLOC, NULL);
 	while (table1[count])
 		dst[index++] = table1[count++];
 	count = 0;

@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 21:08:23 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/12 04:11:11 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/12 07:28:32 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int	init_data_structer_sort_args(t_data *data, char **oldargs)
 {
 	data->index = 0;
 	data->count = 0;
-	data->dst = malloc(sizeof(char *) * \
-		(count_redirection_and_files(oldargs) + 1));
+	data->dst = ft_malloc((sizeof(char *) * \
+		(count_redirection_and_files(oldargs) + 1)), NULL, ALLOC, NULL);
 	if (!data->dst)
 		return (1);
-	data->dst_two = malloc(sizeof(char *) * \
-		(count_argment_without_red(oldargs) + 1));
+	data->dst_two = ft_malloc((sizeof(char *) * \
+		(count_argment_without_red(oldargs) + 1)), NULL, ALLOC, NULL);
 	return (0);
 }
 

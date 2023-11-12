@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 16:25:52 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/12 04:57:18 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/12 05:58:57 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*escape_bs(char *str, int c)
 
 	i = 0;
 	j = 0;
-	res = ft_malloc((sizeof(char) * (ft_strlen(str) + count_bs(str, c) + 1)), NULL, ALLOC, NULL);
+	res = ft_malloc((sizeof(char) * (ft_strlen(str) + count_bs(str, c) + 1)), \
+					NULL, ALLOC, NULL);
 	if (!res)
 		return (NULL);
 	while (str[i])

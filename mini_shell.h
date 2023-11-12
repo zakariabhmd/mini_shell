@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:09:07 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/12 05:49:06 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/12 06:56:58 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,6 @@ int		counter(char *input, int c);
 int		separ(char input, int c);
 int		check_backslash(char *input, int i);
 char	*ft_strcpy(char *dest, char *src);
+int		herdoc(t_savage *savage, int i);
 
 #endif

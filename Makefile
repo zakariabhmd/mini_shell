@@ -3,7 +3,7 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra
 SRC = main.c cd.c echo.c exit.c export.c pwd.c bulttin.c help.c check_export.c env.c error.c parse.c\
 unset.c search.c command.c free_alloc.c redirection.c test.c expansion.c export_utiles.c cd_utiles.c pipe.c\
-red_help.c red_help1.c red_help2.c command_help.c expansion_help.c test_help.c export_utiles1.c
+red_help.c red_help1.c red_help2.c command_help.c expansion_help.c test_help.c export_utiles1.c red_test.c
 OBJ = $(SRC:.c=.o)
 RM = rm -rf
 readflagnbl = -L/Users/zbabahmi/.brew/opt/readline/lib

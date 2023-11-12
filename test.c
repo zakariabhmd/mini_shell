@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 16:33:33 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/12 05:51:31 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/12 07:10:06 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	**lexical_analysis(char *input, int c)
 		return (NULL);
 	len = ft_strlen(input);
 	input = rm_delimiter(input, c);
-	res = malloc(sizeof(char *) * (len + 1));
+	res = ft_malloc((sizeof(char *) * (len + 1)), NULL, ALLOC, NULL);
 	if (!res)
 		return (NULL);
 	lex_help1(input, res, len);
