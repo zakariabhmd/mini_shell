@@ -6,63 +6,11 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 16:33:33 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/07 21:21:01 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/12 05:51:31 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-int	whitespaces(char c)
-{
-	if (c == ' ' || c == '\t')
-		return (1);
-	return (0);
-}
-
-int	separ(char input, int c)
-{
-	if (c == ' ' && whitespaces(input))
-		return (1);
-	else if (input == c)
-		return (1);
-	return (0);
-}
-
-int	counter(char *input, int c)
-{
-	int	i;
-	int	word;
-
-	i = 0;
-	word = 0;
-	while (input[i])
-	{
-		if (separ(input[i], c) && input[i - 1] != '\\')
-		{
-			word++;
-			while (input[i] && !separ(input[i], c))
-				i++;
-		}
-		i++;
-	}
-	return (word);
-}
-
-int	check_backslash(char *input, int i)
-{
-	int	bs;
-
-	bs = 0;
-	i--;
-	while (i >= 0 && input[i] == '\\')
-	{
-		i--;
-		bs++;
-	}
-	if (bs > 1 && input[i] == ' ')
-		bs = 1;
-	return ((bs + 1) % 2);
-}
 
 char	*rm_delimiter(char *input, int c)
 {
@@ -86,6 +34,36 @@ void	skip_spaces(char *str, int *i)
 		(*i)++;
 }
 
+void	lex_help(char **res, int j, int i)
+{
+	free(res[j]);
+	res[j] = ft_strdup("");
+	i += 2;
+}
+
+void	lex_help1(char *input, char **res, int len)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < len)
+	{
+		skip_spaces(input, &i);
+		res[j] = ft_strdup(&input[i]);
+		if (!ft_strncmp(res[j], "\"\"", 2))
+		{
+			lex_help(res, j, i);
+		}
+		else
+			i += ft_strlen(res[j++]);
+		while (i < len && !input[i])
+			i++;
+	}
+	res[j] = NULL;
+}
+
 char	**lexical_analysis(char *input, int c)
 {
 	char	**res;
@@ -100,24 +78,6 @@ char	**lexical_analysis(char *input, int c)
 	res = malloc(sizeof(char *) * (len + 1));
 	if (!res)
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (i < len)
-	{
-		skip_spaces(input, &i);
-		res[j] = ft_strdup(&input[i]);
-		if (!ft_strncmp(res[j], "\"\"", 2))
-		{
-			free(res[j]);
-			res[j] = ft_strdup("");
-			i += 2;
-		}
-		else
-			i += ft_strlen(res[j]);
-		j++;
-		while (i < len && !input[i])
-			i++;
-	}
-	res[j] = NULL;
+	lex_help1(input, res, len);
 	return (res);
 }

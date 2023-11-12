@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:02:56 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/10 06:58:50 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/12 04:48:10 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,10 @@ int	export(t_savage *savage, char *var)
 		{
 			if (!check_valid_name(savage->agrs[i]))
 				invalid_export(savage, savage->agrs[i], "export");
-			else if ((backup = ft_strchr(savage->agrs[i], '=')) && \
-				backup != savage->agrs[i])
+			else if ((backup = ft_strchr(savage->agrs[i], '=')) && backup != savage->agrs[i])
 				do_export(savage, var, i);
 			else if (alpha(savage->agrs[i]) && \
-				!(ft_strchr(savage->agrs[i], '=')))
+					!(ft_strchr(savage->agrs[i], '=')))
 			{
 				do_export(savage, savage->agrs[i], i);
 			}

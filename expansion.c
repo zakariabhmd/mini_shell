@@ -6,11 +6,38 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 16:25:52 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/11 04:25:59 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/12 04:57:18 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+char	*escape_bs(char *str, int c)
+{
+	char	*res;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	res = ft_malloc((sizeof(char) * (ft_strlen(str) + count_bs(str, c) + 1)), NULL, ALLOC, NULL);
+	if (!res)
+		return (NULL);
+	while (str[i])
+	{
+		if (str[i] == '$' && str[i - 1] != '\\')
+		{
+			if (!str[i + 1] || str[i + 1] == '\\' || str[i + 1] == ' ')
+				res[j++] = '\\';
+		}
+		else if (c == '\\' && str[i] == c)
+			res[j++] = '\\';
+		res[j++] = str[i];
+		i++;
+	}
+	res[j++] = '\0';
+	return (res);
+}
 
 char	*get_env_value(t_savage *savage, int i)
 {
@@ -22,9 +49,7 @@ char	*get_env_value(t_savage *savage, int i)
 	else
 		value = ft_strdup("");
 	tmp = ft_strdup(value);
-	free(value);
 	value = escape_bs(tmp, '\\');
-	free(tmp);
 	return (value);
 }
 
@@ -66,30 +91,6 @@ char	*expd(char *str, t_savage *savage)
 	return (str);
 }
 
-char	*ft_strjoin_free(char *s1, char *s2)
-{
-	char	*str;
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	str = malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!str)
-		return (NULL);
-	else
-	{
-		while (s1[i])
-			str[j++] = s1[i++];
-	}
-	i = 0;
-	while (s2[i])
-		str[j++] = s2[i++];
-	str[j] = '\0';
-	free(s1);
-	return (str);
-}
-
 char	*expansion(t_savage *savage, char *commands)
 {
 	char	**lex_env;
@@ -97,20 +98,17 @@ char	*expansion(t_savage *savage, char *commands)
 	char	*res;
 	char	*hold;
 
-	i = 0;
 	hold = ft_strdup("");
-	free(commands);
 	commands = escape_bs(commands, '$');
 	lex_env = ft_split(commands, ' ');
+	i = 0;
 	while (lex_env[i])
 	{
 		commands = expd(lex_env[i], savage);
 		res = ft_strjoin(commands, " ");
-		hold = ft_strjoin_free(hold, res);
+		hold = ft_strjoin(hold, res);
 		free(res);
-		// free(commands);
 		i++;
 	}
-	free_env(lex_env);
 	return (hold);
 }

@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:02:47 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/07 21:16:55 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/11 23:29:22 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	write_err_msg(t_savage *savage)
 	backup = ft_strdup("exit: ");
 	backup = ft_strjoin(backup, savage->agrs[1]);
 	ft_error(" numeric argument required", backup);
-	free(backup);
 	exit(255);
 }
 

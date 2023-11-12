@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:30:20 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/10 06:42:05 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/12 02:07:33 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@ void	duplicate_fd(t_cmds *cmd)
 	cmd->i = 0;
 	cmd->stdi = dup(0);
 	cmd->stdo = dup(1);
-}
-
-void	duplicate1_fd(t_cmds *cmd)
-{
-	dup2(cmd->stdi, 0);
-	dup2(cmd->stdo, 1);
 }
 
 int	child_proc(t_savage *savage, int fd[2], int i)
@@ -48,7 +42,7 @@ void	pipe_help(t_savage *savage, t_cmds *cmd)
 {
 	while (cmd->i <= savage->count)
 	{
-		get_args(savage, cmd->i);
+		ft_get_args(savage, cmd->i);
 		pipe(cmd->fd);
 		cmd->pid = child_proc(savage, cmd->fd, cmd->i);
 		dup2(cmd->fd[0], 0);
@@ -63,7 +57,7 @@ void	pipe_help(t_savage *savage, t_cmds *cmd)
 	}
 }
 
-void	multipale_cmds(t_savage *savage, t_cmds *cmd)
+void	multipale(t_savage *savage, t_cmds *cmd)
 {
 	duplicate_fd(cmd);
 	pipe_help(savage, cmd);
@@ -77,7 +71,18 @@ void	multipale_cmds(t_savage *savage, t_cmds *cmd)
 		cmd->top = wait(&savage->exit_status);
 	}
 	savage->exit_status = WEXITSTATUS(savage->exit_status);
-	duplicate1_fd(cmd);
+	dup2(cmd->stdi, 0);
+	dup2(cmd->stdo, 1);
 	close(cmd->stdi);
 	close(cmd->stdo);
+}
+
+void	multipale_cmds(char *input, t_savage *savage, t_cmds *cmd)
+{
+	savage->agrs = NULL;
+	savage->first_arg = NULL;
+	savage->count = 0;
+	savage->command = lexical_analysis(input, '|');
+	savage->count = count_pipe(savage->command);
+	multipale(savage, cmd);
 }

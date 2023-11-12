@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 10:13:29 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/09 07:32:44 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/11 23:27:26 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ char	*lower(char *input)
 		output[i] = ft_tolower(tmp[i]);
 		i++;
 	}
-	free(tmp);
 	output[i] = '\0';
 	return (output);
 }

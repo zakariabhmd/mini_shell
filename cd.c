@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:57:50 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/09 07:32:53 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/11 23:28:03 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	home_check(t_savage *savage, char *path)
 	path = NULL;
 	backup = ft_strdup(savage->first_arg);
 	ft_error(" HOME not set", backup);
-	free(backup);
 	return (1);
 }
 
@@ -80,6 +79,5 @@ int	cd(t_savage *savage)
 	else
 		path = ft_strdup(loc);
 	change_loc(savage, path);
-	free(path);
 	return (1);
 }

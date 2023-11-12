@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 17:51:54 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/10 06:47:17 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/09 07:35:43 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,7 @@ char	*search_bin(t_savage *savage, char **path)
 	while (path[i])
 	{
 		if (binary_path_ex(savage, path[i], b_name, &st))
-		{
 			return (generate_absolute_path(path[i], savage->agrs[0]));
-		}
 		i++;
 	}
 	return (NULL);

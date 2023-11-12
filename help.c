@@ -6,33 +6,11 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 06:02:58 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/10 01:03:04 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/11 23:30:50 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-char	**strdup_env(char **env)
-{
-	char	**tmp;
-	int		len;
-	int		i;
-
-	len = 0;
-	i = 0;
-	while (env[len])
-		len++;
-	tmp = malloc(sizeof(char *) * len + 13);
-	if (!tmp)
-		return (NULL);
-	while (*env && env[i])
-	{
-		tmp[i] = ft_strdup(env[i]);
-		i++;
-	}
-	tmp[i] = NULL;
-	return (tmp);
-}
 
 char	**reallocation(char **env, int added)
 {
@@ -42,7 +20,7 @@ char	**reallocation(char **env, int added)
 	i = 0;
 	while (env[i])
 		i++;
-	backup = malloc((i + added + 1) * sizeof(char *));
+	backup = ft_malloc(((i + added + 1) * sizeof(char *)), NULL, ALLOC, NULL);
 	if (!backup)
 		return (NULL);
 	return (backup);
@@ -83,20 +61,4 @@ char	*generate_absolute_path(char *path, char *bin)
 	path = ft_strjoin(tmp, bin);
 	free(tmp);
 	return (path);
-}
-
-void	signal_check(int sig)
-{
-	if (sig == SIGQUIT)
-	{
-		rl_redisplay();
-		signal(sig, signal_check);
-	}
-	else if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_redisplay();
-		signal(sig, signal_check);
-	}
 }

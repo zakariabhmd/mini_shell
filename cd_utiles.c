@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 19:37:13 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/07 22:05:06 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/11 23:28:38 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ void	dce(t_savage *savage, char *path, char *print_err)
 	backup = ft_strdup(path);
 	free(path);
 	err_msg = ft_strjoin(backup, print_err);
-	free(backup);
 	ft_error(err_msg, savage->first_arg);
-	free(err_msg);
 }
 
 void	dir_changer_err(t_savage *savage, char *path)
