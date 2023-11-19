@@ -6,41 +6,61 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:30:20 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/12 02:07:33 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/15 18:47:30 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-void	duplicate_fd(t_cmds *cmd)
-{
-	cmd->i = 0;
-	cmd->stdi = dup(0);
-	cmd->stdo = dup(1);
-}
-
 int	child_proc(t_savage *savage, int fd[2], int i)
 {
 	pid_t	pid;
 
-	pid = fork();
-	if (pid == 0)
+	if (!bulttin_check(savage))
 	{
-		close(fd[0]);
-		if (savage->command[i + 1])
-			dup2(fd[1], 1);
-		check_redirections(savage);
-		exev_args(savage);
+		pid = fork();
+		if (pid == 0)
+		{
+			close(fd[0]);
+			if (savage->command[i + 1])
+				dup2(fd[1], 1);
+			check_redirections(savage);
+			exev_args(savage);
+			close(fd[1]);
+			exit(savage->exit_status);
+		}
 		close(fd[1]);
-		exit(savage->exit_status);
 	}
-	close(fd[1]);
 	return (pid);
+}
+
+char	**pipe_checker(int size)
+{
+	char	**pipes;
+	int		i;
+
+	i = 0;
+	pipes = ft_malloc(size + 1, NULL, ALLOC, NULL);
+	while (i < size)
+	{
+		pipes[i] = ft_strdup("|");
+		i++;
+	}
+	pipes[size] = NULL;
+	return (pipes);
+}
+
+char	**multipale_cmds(char *input, t_savage *savage, t_cmds *cmd)
+{
+	savage->agrs = NULL;
+	savage->first_arg = NULL;
+	savage->command = pipe_checker(savage->count);
+	return (multipale(savage, cmd));
 }
 
 void	pipe_help(t_savage *savage, t_cmds *cmd)
 {
-	while (cmd->i <= savage->count)
+	while (cmd->i < savage->count)
 	{
 		ft_get_args(savage, cmd->i);
 		pipe(cmd->fd);
@@ -57,7 +77,7 @@ void	pipe_help(t_savage *savage, t_cmds *cmd)
 	}
 }
 
-void	multipale(t_savage *savage, t_cmds *cmd)
+char	**multipale(t_savage *savage, t_cmds *cmd)
 {
 	duplicate_fd(cmd);
 	pipe_help(savage, cmd);
@@ -71,18 +91,8 @@ void	multipale(t_savage *savage, t_cmds *cmd)
 		cmd->top = wait(&savage->exit_status);
 	}
 	savage->exit_status = WEXITSTATUS(savage->exit_status);
-	dup2(cmd->stdi, 0);
-	dup2(cmd->stdo, 1);
+	duplicate1_fd(cmd);
 	close(cmd->stdi);
 	close(cmd->stdo);
-}
-
-void	multipale_cmds(char *input, t_savage *savage, t_cmds *cmd)
-{
-	savage->agrs = NULL;
-	savage->first_arg = NULL;
-	savage->count = 0;
-	savage->command = lexical_analysis(input, '|');
-	savage->count = count_pipe(savage->command);
-	multipale(savage, cmd);
+	return (savage->env);
 }

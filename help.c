@@ -46,10 +46,7 @@ char	**renew_env(char **var, char **env, int pos)
 		i++;
 		j++;
 	}
-	if (j != pos)
-		backup[j] = NULL;
-	else
-		backup[i + 1] = NULL;
+	backup[i + 1] = NULL;
 	return (backup);
 }
 

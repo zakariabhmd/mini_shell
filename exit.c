@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:02:47 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/11 23:29:22 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/15 18:52:37 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	write_err_msg(t_savage *savage)
 	backup = ft_strdup("exit: ");
 	backup = ft_strjoin(backup, savage->agrs[1]);
 	ft_error(" numeric argument required", backup);
+	savage->exit_status = 255;
 	exit(255);
 }
 
@@ -51,13 +52,12 @@ void	to_exit(t_savage *savage)
 	if (savage->agrs[1])
 	{
 		box = savage->agrs[1];
-		while (box[i])
+		while (box[i++])
 		{
 			if (box[i] == '-')
 				i++;
 			if (!ft_isdigit(box[i]))
 				write_err_msg(savage);
-			i++;
 		}
 		handler = ft_atoi(box);
 		if (toomany(savage->agrs[2]))
@@ -65,5 +65,6 @@ void	to_exit(t_savage *savage)
 	}
 	else
 		handler = savage->exit_status;
+	printf("exit\n");
 	all_exit(handler, savage);
 }

@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 21:08:23 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/12 07:28:32 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/15 20:57:19 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ char	**sort_args(char **oldargs)
 	data.count = 0;
 	split_args_are_not_redirections(&data, oldargs);
 	new_args = join_tables(data.dst_two, data.dst);
+	free(oldargs);
 	return (new_args);
 }

@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   pipe1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/26 06:58:46 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/26 06:58:46 by zbabahmi         ###   ########.fr       */
+/*   Created: 2023/11/14 21:13:14 by zbabahmi          #+#    #+#             */
+/*   Updated: 2023/11/15 18:47:51 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int	ft_error(char *msg, char *bin)
+void	duplicate_fd(t_cmds *cmd)
 {
-	ft_putstr_fd("minishell: \0", 2);
-	if (bin)
-	{
-		ft_putstr_fd(bin, 2);
-		ft_putchar_fd(':', 2);
-	}
-	ft_putendl_fd(msg, 2);
-	return (1);
+	cmd->i = 0;
+	cmd->stdi = dup(0);
+	cmd->stdo = dup(1);
+}
+
+void	duplicate1_fd(t_cmds *cmd)
+{
+	dup2(cmd->stdi, 0);
+	dup2(cmd->stdo, 1);
 }

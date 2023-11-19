@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/26 06:58:46 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/10/26 06:58:46 by zbabahmi         ###   ########.fr       */
+/*   Created: 2023/10/28 21:57:05 by atoukmat          #+#    #+#             */
+/*   Updated: 2023/11/15 19:26:34 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_shell.h"
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-int	ft_error(char *msg, char *bin)
-{
-	ft_putstr_fd("minishell: \0", 2);
-	if (bin)
-	{
-		ft_putstr_fd(bin, 2);
-		ft_putchar_fd(':', 2);
-	}
-	ft_putendl_fd(msg, 2);
-	return (1);
-}
+# include "./ft_mallocc/ft_malloc.h"
+# include "./libft/libft.h"
+# include "mini_shell.h"
+# include <ctype.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/wait.h>
+# include <unistd.h>
+# include "main.h"
+
+#endif

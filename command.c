@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 17:47:06 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/12 01:54:49 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/15 18:19:10 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,18 @@ void	exev_args(t_savage *savage)
 {
 	char	*path;
 
-	if (!bulttin_check(savage))
+	path = get_path(savage);
+	if (path == NULL)
 	{
-		path = get_path(savage);
-		if (path == NULL)
-		{
-			printf("minishell: %s: command not found\n", savage->agrs[0]);
-			exit(127);
-		}
-		if (execve(path, savage->agrs, savage->env) == -1)
-		{
-			perror("minishell: execve");
-			exit(126);
-		}
+		printf("minishell: %s: command not found\n", savage->agrs[0]);
+		savage->exit_status = 127;
+		exit(127);
+	}
+	if (execve(path, savage->agrs, savage->env) == -1)
+	{
+		savage->exit_status = 126;
+		perror("minishell: execve");
+		exit(126);
 	}
 }
 
@@ -75,26 +74,31 @@ int	count_pipe(char **arg)
 	return (i - 1);
 }
 
-void	check_command(t_savage *savage)
+char	**check_command(t_savage *savage)
 {
-	char	*exp;
-	int		hold;
-	int		holder;
+	int	hold;
+	int	holder;
 
 	hold = dup(STDOUT_FILENO);
-	if (!savage->agrs[0])
-		return ;
-	savage->first_arg = ft_strdup(savage->agrs[0]);
+	savage->agrs = savage->cmd[0].agrs;
+	if (savage->cmd[0].first_arg && (savage->cmd[0].first_arg[0] != '\0'))
+		savage->first_arg = savage->cmd[0].first_arg;
+	else
+		return (savage->env);
+	if (!savage->agrs[0] || savage->agrs[0][0] == '\0')
+		return (savage->env);
 	holder = check_redirections(savage);
 	if (holder != -1)
 	{
 		if (savage->agrs[0] && !(bulttin_check(savage)))
 			check_one_command(savage);
 	}
+	close(hold);
 	if (holder != -1)
 	{
 		close(holder);
 		dup2(hold, STDOUT_FILENO);
 		close(hold);
 	}
+	return (savage->env);
 }

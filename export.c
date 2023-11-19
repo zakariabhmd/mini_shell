@@ -3,36 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atoukmat <atoukmat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 13:02:56 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/12 04:48:10 by zbabahmi         ###   ########.fr       */
+/*   Created: 2023/11/14 19:40:44 by zbabahmi          #+#    #+#             */
+/*   Updated: 2023/11/15 07:58:00 by atoukmat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-char	**check_env(char **env)
-{
-	char	**backup_env;
-	char	*backup;
-	char	*backup1;
-	int		i;
-
-	i = 0;
-	backup_env = strdup_env(env);
-	while (backup_env[i])
-	{
-		backup = ft_strjoin("declare -x ", backup_env[i]);
-		backup1 = write_q_and_bslash(backup);
-		free(backup_env[i]);
-		free(backup);
-		backup_env[i] = backup1;
-		i++;
-	}
-	free(backup1);
-	return (backup_env);
-}
 
 int	write_env(t_savage *savage)
 {
@@ -41,7 +19,7 @@ int	write_env(t_savage *savage)
 
 	backup_env = strdup_env(savage->env);
 	backup_env1 = check_env(backup_env);
-	environment(savage, backup_env1);
+	environment_0(savage, backup_env1);
 	return (1);
 }
 
@@ -66,12 +44,9 @@ void	do_export(t_savage *savage, char *var, int j)
 	while (savage->env[i] && ft_strncmp_res(savage->env[i], var_value, var_len))
 		i++;
 	backup = ft_strdup(var_value);
-	free(var_value);
 	var_value = bs_parse(backup, 3);
-	free(backup);
 	backup_env = renew_env(&var_value, savage->env, i);
 	free_env(savage->env);
-	free(var_value);
 	savage->env = backup_env;
 }
 
@@ -84,6 +59,23 @@ int	alpha(char *str)
 		str++;
 	}
 	return (0);
+}
+
+void	export_help(t_savage *savage, char *var, char *backup, int i)
+{
+	while (savage->agrs[i])
+	{
+		backup = ft_strchr(savage->agrs[i], '=');
+		if (!check_valid_name(savage->agrs[i]))
+			invalid_export(savage, savage->agrs[i], "export");
+		else if (backup != savage->agrs[i])
+			do_export(savage, var, i);
+		else if (alpha(savage->agrs[i]) && !(ft_strchr(savage->agrs[i], '=')))
+		{
+			do_export(savage, savage->agrs[i], i);
+		}
+		i++;
+	}
 }
 
 int	export(t_savage *savage, char *var)
@@ -99,20 +91,6 @@ int	export(t_savage *savage, char *var)
 	else if (!savage->agrs[i])
 		return (write_env(savage));
 	else
-	{
-		while (savage->agrs[i])
-		{
-			if (!check_valid_name(savage->agrs[i]))
-				invalid_export(savage, savage->agrs[i], "export");
-			else if ((backup = ft_strchr(savage->agrs[i], '=')) && backup != savage->agrs[i])
-				do_export(savage, var, i);
-			else if (alpha(savage->agrs[i]) && \
-					!(ft_strchr(savage->agrs[i], '=')))
-			{
-				do_export(savage, savage->agrs[i], i);
-			}
-			i++;
-		}
-	}
+		export_help(savage, var, backup, i);
 	return (1);
 }

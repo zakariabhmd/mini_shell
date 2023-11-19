@@ -6,7 +6,7 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 07:01:58 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/12 07:02:12 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/15 21:18:04 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	herdoc(t_savage *savage, int i)
 	char	*input;
 
 	fd = -1;
-	input = ft_calloc(1, 1);
+	input = ft_malloc(1 * 1, NULL, ALLOC, NULL);
 	savage->exit_status = 1;
 	unlink("/tmp/test");
 	fd = open("/tmp/test", O_CREAT | O_WRONLY, 0777);

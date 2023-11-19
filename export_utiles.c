@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utiles.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atoukmat <atoukmat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 18:19:10 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/12 04:50:07 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/15 11:40:41 by atoukmat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	invalid_export(t_savage *savage, char *var, char *cmd)
 	int		size;
 
 	size = ft_strlen(var);
-	print_err = malloc((sizeof(char) * (size + 28)));
+	print_err = ft_malloc(sizeof(char) * (size + 28), NULL, ALLOC, NULL);
 	if (!print_err)
 		return (0);
 	backup = NULL;
@@ -35,6 +35,7 @@ int	invalid_export(t_savage *savage, char *var, char *cmd)
 	free(backup);
 	savage->exit_status = 1;
 	ft_error(print_err, cmd);
+	savage->exit_status = 1;
 	free(print_err);
 	return (1);
 }
@@ -72,7 +73,7 @@ char	*write_q_and_bslash(char *s)
 	i = 0;
 	j = 0;
 	size = ft_strlen(s);
-	box = malloc((sizeof(char) * (size + count_s_char(s)) * 13));
+	box = ft_malloc((size + count_s_char(s)) * 13, NULL, ALLOC, NULL);
 	if (!box)
 		return (NULL);
 	while (s[i])

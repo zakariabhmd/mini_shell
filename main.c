@@ -6,120 +6,76 @@
 /*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 05:08:55 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/12 02:15:19 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/15 22:12:28 by zbabahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-#include <stdio.h>
+#include "minishell.h"
+#include "main.h"
 
-void	ft_get_args(t_savage *savage, int i)
+void	segnal_dup(t_main *m)
 {
-	char	*exp;
-
-	exp = expansion(savage, savage->command[i]);
-	savage->agrs = set_args(exp);
-	free(exp);
-	if (savage->agrs[0])
-		savage->first_arg = ft_strdup(savage->agrs[0]);
+	m->savage->minisig.sa_handler = signl;
+	sigemptyset(&m->savage->minisig.sa_mask);
+	sigaddset(&m->savage->minisig.sa_mask, SIGQUIT);
+	m->savage->minisig.sa_flags = 0;
+	sigaction(SIGINT, &m->savage->minisig, NULL);
+	sigaction(SIGQUIT, &m->savage->minisig, NULL);
+	dup2(m->savage->fd, 1);
+	dup2(m->savage->fd0, 0);
 }
 
-void	check_one_command(t_savage *savage)
+void	pars_and_execute(t_main *m)
 {
-	pid_t	pid;
-	char	*path;
-	char	*backup;
+	m->cmds = parsing(m->tokens, m->l_env, m->savage->exit_status);
+	m->my_env = handle_merge(m->input, m->cmds, lenv_2_env(m->l_env),
+			m->savage);
+	m->l_env = local_env(m->my_env);
+	free_procs(m->cmds);
+}
 
-	path = get_path(savage);
-	pid = fork();
-	if (pid == 0)
+int	get_tokens_by_rl(t_main *m)
+{
+	m->input = readline("minishell->");
+	if (m->input == NULL)
+		return (0);
+	add_history(m->input);
+	return (1);
+}
+
+void	main_helper(t_main	*m)
+{
+	while (1)
 	{
-		if (path == NULL)
+		segnal_dup(m);
+		if (!get_tokens_by_rl(m))
+			break ;
+		if (ft_strlen(m->input) == 0)
 		{
-			ft_error(" command not found", savage->first_arg);
-			exit(127);
+			free(m->input);
+			continue ;
 		}
-		execve(path, savage->agrs, savage->env);
-	}
-	signal(SIGINT, waitsignal);
-	waitpid(pid, &savage->exit_status, 0);
-	if (WIFEXITED(savage->exit_status))
-		savage->exit_status = WEXITSTATUS(savage->exit_status);
-	if (savage->exit_status == -1)
-		ft_putchar_fd('\n', 1);
-	backup = update_lastarg(savage->agrs);
-	export(savage, backup);
-}
-
-void	free_l_env(t_env *tokens)
-{
-	t_env	*current;
-	t_env	*temp;
-
-	current = tokens;
-	while (current != NULL)
-	{
-		temp = current;
-		current = current->next;
-		free(temp->arg);
-		free(temp);
-	}
-}
-
-void	signl(int signal)
-{
-	if (signal == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		m->tokens = get_tokens(m->input, m->savage);
+		if (syntax_checker(m->tokens))
+			pars_and_execute(m);
+		else
+		{
+			m->savage->exit_status = 258;
+			perror("syntax error near unexpected token `|'");
+		}
+		free(m->input);
 	}
 }
 
 int	main(int ac, char **argv, char **env)
 {
-	char				*input;
-	t_token				*tokens;
-	t_proc				*cmds;
-	t_env				*l_env;
-	struct sigaction	minisig;
+	t_main	*m;
 
-	tokens = NULL;
-	cmds = NULL;
-	(void)ac;
-	(void)argv;
-	minisig.sa_handler = signl;
-	sigemptyset(&minisig.sa_mask);
-	sigaddset(&minisig.sa_mask, SIGQUIT);
-	minisig.sa_flags = 0;
-	sigaction(SIGINT, &minisig, NULL);
-	sigaction(SIGQUIT, &minisig, NULL);
-	l_env = local_env(env);
-	while (1)
-	{
-		input = readline("Shell $ ");
-		if (input == NULL)
-			break ;
-		if (ft_strlen(input) == 0)
-		{
-			free(input);
-			continue ;
-		}
-		tokens = get_tokens(input);
-		if (syntax_checker(tokens))
-		{
-			cmds = parsing(tokens, l_env);
-			handle_merge(input, cmds, env);
-			free_procs(cmds);
-		}
-		else
-		{
-			perror("Syntax error");
-		}
-		free_tokens(tokens);
-		free(input);
-	}
-	free_l_env(l_env);
+	m = ft_malloc(sizeof(t_main), NULL, ALLOC, NULL);
+	set_main(m, env);
+	main_helper(m);
+	free_l_env(m->l_env);
+	free(m);
 	return (0);
 }

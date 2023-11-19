@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atoukmat <atoukmat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:57:50 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/11 23:28:03 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/15 11:34:55 by atoukmat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,14 @@ int	home_check(t_savage *savage, char *path)
 	free(path);
 	path = NULL;
 	backup = ft_strdup(savage->first_arg);
+	savage->exit_status = 1;
 	ft_error(" HOME not set", backup);
 	return (1);
 }
 
 int	too_args(t_savage *savage)
 {
+	savage->exit_status = 1;
 	ft_error(" too many arguments", savage->first_arg);
 	return (1);
 }

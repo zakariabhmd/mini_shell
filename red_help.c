@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red_help.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atoukmat <atoukmat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 21:09:40 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/12 04:10:51 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/15 07:58:00 by atoukmat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ int	red_exists(t_savage *savage, int i)
 		else
 		{
 			savage->exit_status = 1;
-			ft_error(" No such file or directory", savage->agrs[i + 1]);
+			ft_error("syntax error near unexpected token `newline'", \
+					savage->agrs[i + 1]);
 		}
 	}
 	return (fd);

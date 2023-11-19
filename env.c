@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbabahmi <zbabahmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atoukmat <atoukmat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:37:08 by zbabahmi          #+#    #+#             */
-/*   Updated: 2023/11/07 21:16:34 by zbabahmi         ###   ########.fr       */
+/*   Updated: 2023/11/15 11:41:36 by atoukmat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,18 @@ int	environment(t_savage *savage, char **var)
 	if (savage->agrs[1])
 	{
 		ft_putendl_fd("env: too many arguments", 1);
+		savage->exit_status = 1;
 		return (1);
 	}
 	i = 0;
 	env_writer = var;
 	path_search(env_writer);
 	while (env_writer[i])
-		ft_putendl_fd(env_writer[i++], 1);
+	{
+		if (ft_strchr(env_writer[i], '=') != 0)
+			printf("%s\n", env_writer[i]);
+		i++;
+	}
 	export(savage, "_=env");
 	return (1);
 }
